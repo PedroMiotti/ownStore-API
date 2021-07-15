@@ -8,4 +8,5 @@ export interface IUser{
     password: string;
     isStaff: boolean;
     createdAt: string;
+    emailVerified: boolean;
 }

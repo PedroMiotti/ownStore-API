@@ -7,5 +7,8 @@
 
   "EMAIL_ALREADY_IN_USE": "Esse e-mail já esta em uso !",
   "CUSTOMER_CREATED_SUCCESSFULLY": "Cliente criado com sucesso !",
-  "ERROR_CREATING_CUSTOMER": "Erro ao criar o cliente !"
+  "ERROR_CREATING_CUSTOMER": "Erro ao criar o cliente !",
+  "INVALID_EMAIL_OR_PASSWORD": "E-mail ou senha incorretos, tente novamente !",
+  "USER_LOGGED_IN_SUCCESSFULLY": "Usuário logado com sucesso !"
+  
 }

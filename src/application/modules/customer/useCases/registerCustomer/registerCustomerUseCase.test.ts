@@ -1,5 +1,5 @@
 import { RegisterCustomerUseCase } from "./index";
-import { ICustomerRepository } from "../../contracts/ICustomerRepository";
+import { ICustomerRepository } from "../../ports/ICustomerRepository";
 import { mock } from "jest-mock-extended";
 import { Customer } from "../../../../../domain/customer/Customer";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";

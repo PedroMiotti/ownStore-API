@@ -1,10 +1,12 @@
 import { IUser } from "./User.interface";
+import { ISession } from "../Session/ISession";
 
 export class User implements IUser{
     id: number;
     firstName: string;
     lastName: string;
     email: string;
+    emailVerified: boolean;
     password: string;
     lastLogin: Date;
     isActive: boolean;
@@ -19,6 +21,14 @@ export class User implements IUser{
         this.password = password;
         this.isStaff = isStaff;
         this.isAdmin = isAdmin;
+    }
 
+    createSession(): ISession {
+        return {
+            id: this.id,
+            email: this.email,
+            emailVerified: this.emailVerified,
+            name: this.firstName + this.lastName,
+        } as ISession;
     }
 }

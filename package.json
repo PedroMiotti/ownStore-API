@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npm run build && jest ",
     "build": "tsc --sourceMap false",
-    "start": "node build/index"
+    "start": "node build/index",
+    "release": "semantic-release --no-ci"
   },
   "repository": {
     "type": "git",
@@ -30,10 +31,13 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/jest": "^26.0.24",
     "@types/luxon": "^1.27.1",
     "husky": "^4.2.3",
+    "semantic-release": "^17.4.4",
     "typescript": "^4.3.5"
   },
   "commitlint": {

@@ -1,4 +1,4 @@
-import { ICustomerRepository } from "../../contracts/ICustomerRepository";
+import { ICustomerRepository } from "../../ports/ICustomerRepository";
 import { BaseUseCase, IResultT, ResultT, Result } from "../../../../shared/useCase/BaseUseCase";
 import { RegisterCustomerDto } from "../../dto/RegisterCustomerDto";
 import { genSaltSync, hashSync } from 'bcryptjs';
