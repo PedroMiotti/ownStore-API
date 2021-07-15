@@ -8,6 +8,10 @@
     "build": "tsc --sourceMap false",
     "start": "node build/index"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PedroMiotti/ownStrore-API"
+  },
   "author": "Pedro Miotti",
   "license": "ISC",
   "dependencies": {
@@ -39,7 +43,7 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitling -E HUSKY_GIT_PARAMS"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
 }
