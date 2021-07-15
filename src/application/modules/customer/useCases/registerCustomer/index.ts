@@ -32,7 +32,6 @@ export class RegisterCustomerUseCase extends BaseUseCase{
 
         const salt = genSaltSync(10); //TODO -> Swap second parameter for ENCRYPTION_SALT_ROUNDS
         const passwordHash = hashSync(customer.password, salt);
-
         customer.password = passwordHash;
         customer.createdAt = DateTime.local().toISO();
 
