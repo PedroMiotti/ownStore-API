@@ -1,0 +1,10 @@
+{
+  "SOMETHING_WENT_WRONG": "Desculpe, algo deu errado com essa ação !",
+  "SOME_PARAMETERS_ARE_MISSING": "Alguns parâmetros estão faltando: {{missingParams}}.",
+  "UNKNOWN_RESPONSE_STATUS": "Estado de resposta do servidor é desconhecido.",
+  "PROCESSING_DATA_CLIENT_ERROR": "Erro ao processar dados do cliente !",
+  "AUTHORIZATION_REQUIRED": "Autorização obrigatória.",
+
+  "EMAIL_ALREADY_IN_USE": "Esse e-mail já esta em uso !",
+  "CUSTOMER_CREATED_SUCCESSFULLY": "Customer was created successfully !"
+}
