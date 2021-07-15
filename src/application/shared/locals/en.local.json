@@ -7,5 +7,7 @@
 
 
   "EMAIL_ALREADY_IN_USE": "This e-mail is already in use !",
-  "CUSTOMER_CREATED_SUCCESSFULLY": "Cliente criado com sucesso !"
+  "CUSTOMER_CREATED_SUCCESSFULLY": "Customer was created successfully !",
+  "ERROR_CREATING_CUSTOMER": "Error creating customer !"
+
 }

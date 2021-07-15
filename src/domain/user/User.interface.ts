@@ -7,4 +7,5 @@ export interface IUser{
     isActive: boolean;
     password: string;
     isStaff: boolean;
+    createdAt: string;
 }

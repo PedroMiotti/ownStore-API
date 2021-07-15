@@ -6,5 +6,6 @@
   "AUTHORIZATION_REQUIRED": "Autorização obrigatória.",
 
   "EMAIL_ALREADY_IN_USE": "Esse e-mail já esta em uso !",
-  "CUSTOMER_CREATED_SUCCESSFULLY": "Customer was created successfully !"
+  "CUSTOMER_CREATED_SUCCESSFULLY": "Cliente criado com sucesso !",
+  "ERROR_CREATING_CUSTOMER": "Erro ao criar o cliente !"
 }

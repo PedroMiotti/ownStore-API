@@ -10,6 +10,7 @@ export class User implements IUser{
     isActive: boolean;
     isStaff: boolean;
     isAdmin: boolean;
+    createdAt: string;
 
     constructor(firstName: string, lastName: string, email: string, password: string, isStaff: boolean, isAdmin: boolean) {
         this.firstName = firstName;
