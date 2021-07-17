@@ -3,7 +3,7 @@ import { ICustomerRepository } from "../../ports/ICustomerRepository";
 import { Customer } from "../../../../../domain/customer/Customer";
 import { TokenDto } from "../../../auth/dto/TokenDto";
 import { UserLoginDto } from "../../../auth/dto/UserLoginDto";
-import {CreateSessionToken} from "../../../auth/useCases/createSessionToken";
+import {CreateSessionTokenUseCase} from "../../../auth/useCases/createSessionToken";
 import {IAuthProvider} from "../../../auth/ports/IAuthProvider";
 import { CustomerProfileDto } from "../../dto/CustomerProfileDto";
 
@@ -46,7 +46,7 @@ export class UpdateCustomerProfileUseCase extends BaseUseCase{
             return result;
         }
 
-        const session = new CreateSessionToken(this.authProvider);
+        const session = new CreateSessionTokenUseCase(this.authProvider);
         const token: TokenDto = await session.execute(customerUpdated);
 
         result.setData(token, this.applicationStatusCode.SUCCESS);

@@ -10,6 +10,8 @@ import { TokenDto } from "../../dto/TokenDto";
 const authProviderMock = mock<IAuthProvider>();
 const loginUseCase = new LoginUseCase(authProviderMock);
 
+const mockToken = "hui3h2r8793y28rh4ui3hq8r94y3q89ry34hwqiohiY*Y@#*Y$*yut8hr4eigf"
+
 describe("Positive auth tests", () => {
     beforeAll(() => {
         resources.setDefaultLanguage("pt");
@@ -23,7 +25,7 @@ describe("Positive auth tests", () => {
         const userLogin: UserLoginDto = { email: "pedromiotti@hotmail.com", password: "1234" };
         const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com",false, false, "1234");
         authProviderMock.login.mockResolvedValueOnce(user);
-        authProviderMock.getJwt.mockResolvedValueOnce(user.password);
+        authProviderMock.getJwt.mockResolvedValueOnce(mockToken);
 
         const result = await loginUseCase.execute(userLogin);
 

@@ -3,7 +3,7 @@ import { UserLoginDto } from "../../dto/UserLoginDto";
 import { TokenDto } from "../../dto/TokenDto";
 import { User } from "../../../../../domain/user/User";
 import { IAuthProvider } from "../../ports/IAuthProvider";
-import {CreateSessionToken} from "../createSessionToken";
+import { CreateSessionTokenUseCase } from "../createSessionToken";
 
 export class LoginUseCase extends BaseUseCase{
     private readonly authProvider: IAuthProvider;
@@ -32,7 +32,7 @@ export class LoginUseCase extends BaseUseCase{
             return result;
         }
 
-        const session = new CreateSessionToken(this.authProvider);
+        const session = new CreateSessionTokenUseCase(this.authProvider);
         const token: TokenDto = await session.execute(authenticatedUser);
 
         result.setData(token, this.applicationStatusCode.SUCCESS);

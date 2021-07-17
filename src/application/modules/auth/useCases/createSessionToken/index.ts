@@ -5,7 +5,7 @@ import {BaseUseCase} from "../../../../shared/useCase/BaseUseCase";
 import {IAuthProvider} from "../../ports/IAuthProvider";
 
 
-export class CreateSessionToken extends BaseUseCase{
+export class CreateSessionTokenUseCase extends BaseUseCase{
     private readonly authProvider: IAuthProvider;
 
     public constructor(authProvider: IAuthProvider) {
