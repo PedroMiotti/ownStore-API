@@ -3,7 +3,7 @@ import { UserLoginDto } from "../../dto/UserLoginDto";
 import { TokenDto } from "../../dto/TokenDto";
 import { User } from "../../../../../domain/user/User";
 import { IAuthProvider } from "../../ports/IAuthProvider";
-import { ISession } from "../../../../../domain/Session/ISession";
+import {CreateSessionToken} from "../createSessionToken";
 
 export class LoginUseCase extends BaseUseCase{
     private readonly authProvider: IAuthProvider;
@@ -32,23 +32,16 @@ export class LoginUseCase extends BaseUseCase{
             return result;
         }
 
-        const tokenDto: TokenDto = await this.createSession(authenticatedUser);
+        const session = new CreateSessionToken(this.authProvider);
+        const token: TokenDto = await session.execute(authenticatedUser);
 
-        result.setData(tokenDto, this.applicationStatusCode.SUCCESS);
+        result.setData(token, this.applicationStatusCode.SUCCESS);
         result.setMessage(
             this.resources.get(this.resourceKeys.USER_LOGGED_IN_SUCCESSFULLY),
             this.applicationStatusCode.SUCCESS,
         );
 
         return result;
-    }
-
-    private async createSession(authenticatedUser: User): Promise<TokenDto> {
-        const session: ISession = authenticatedUser.createSession();
-        const token = await this.authProvider.getJwt(session);
-
-        const tokenDto: TokenDto = new TokenDto(token, 365 * 24 * 60 * 60 * 1000); // TODO -> Swap with appsettings JWTExpirationTime
-        return Promise.resolve(tokenDto);
     }
 
     private isValidRequest(result: Result, userLogin: UserLoginDto): boolean {

@@ -14,13 +14,13 @@ export class User implements IUser{
     isAdmin: boolean;
     createdAt: string;
 
-    constructor(firstName: string, lastName: string, email: string, password: string, isStaff: boolean, isAdmin: boolean) {
+    constructor(firstName: string, lastName: string, email: string, isStaff: boolean, isAdmin: boolean, password?: string) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
         this.isStaff = isStaff;
         this.isAdmin = isAdmin;
+        this.password = password;
     }
 
     createSession(): ISession {

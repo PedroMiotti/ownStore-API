@@ -6,7 +6,6 @@ import { LoginUseCase } from "./index";
 import { UserLoginDto } from "../../dto/UserLoginDto";
 import { User } from "../../../../../domain/user/User";
 import { TokenDto } from "../../dto/TokenDto";
-import {Customer} from "../../../../../domain/customer/Customer";
 
 const authProviderMock = mock<IAuthProvider>();
 const loginUseCase = new LoginUseCase(authProviderMock);
@@ -22,7 +21,7 @@ describe("Positive auth tests", () => {
 
     it("Should return a success if the user was logged in", async () => {
         const userLogin: UserLoginDto = { email: "pedromiotti@hotmail.com", password: "1234" };
-        const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com", "1234", false, false);
+        const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com",false, false, "1234");
         authProviderMock.login.mockResolvedValueOnce(user);
         authProviderMock.getJwt.mockResolvedValueOnce(user.password);
 

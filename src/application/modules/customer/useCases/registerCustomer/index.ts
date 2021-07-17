@@ -44,6 +44,8 @@ export class RegisterCustomerUseCase extends BaseUseCase{
             return result;
         }
 
+        // TODO -> Send welcome email to customer
+
         result.setData(customer, this.applicationStatusCode.CREATED);
         result.setMessage(
             this.resources.get(this.resourceKeys.CUSTOMER_CREATED_SUCCESSFULLY),

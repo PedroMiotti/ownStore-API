@@ -13,8 +13,8 @@ export class Customer extends User implements ICustomer{
     nonPromoRewardPoints: number;
     promoRewardPoint: number;
 
-    constructor(firstName: string, lastName: string, email: string, password: string) {
-        super(firstName, lastName, email, password, false, false);
+    constructor(firstName: string, lastName: string, email: string, isStaff: boolean, isAdmin: boolean, password?: string) {
+        super(firstName, lastName, email, false, false, password);
     }
 
 }

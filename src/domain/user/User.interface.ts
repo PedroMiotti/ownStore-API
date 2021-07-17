@@ -9,4 +9,6 @@ export interface IUser{
     isStaff: boolean;
     createdAt: string;
     emailVerified: boolean;
+    isAdmin: boolean;
+
 }

@@ -19,7 +19,7 @@ describe("Positive customer tests", () => {
     });
 
     it("Should return a success if the customer was registered", async () => {
-        const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com", "pedro123");
+        const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com", false, false, "pedro123");
         customerRepositoryMock.getCustomerByEmail.mockResolvedValueOnce(null);
         customerRepositoryMock.registerCustomer.mockResolvedValueOnce(customer);
 
@@ -42,7 +42,7 @@ describe("Negative customer tests", () => {
     });
 
     it("should return a 400 error if customer with the same email already exists", async () => {
-        const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com", "pedro123");
+        const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com", false, false, "pedro123");
         customerRepositoryMock.getCustomerByEmail.mockResolvedValueOnce(customer);
 
         const result = await registerCustomerUseCase.execute(customer);
@@ -57,7 +57,7 @@ describe("Negative customer tests", () => {
     })
 
     it("should return a 400 error if the customer does not provide all the required information ", async () => {
-        const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com", null);
+        const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com",false, false, null);
         customerRepositoryMock.getCustomerByEmail.mockResolvedValueOnce(customer);
 
         const result = await registerCustomerUseCase.execute(customer);
@@ -72,7 +72,7 @@ describe("Negative customer tests", () => {
     })
 
     it("should return a 400 error if the customer info is null or undefined", async () => {
-        const customer = new Customer(null, null, null, null);
+        const customer = new Customer(null, null, null,false, false, null);
         customerRepositoryMock.getCustomerByEmail.mockResolvedValueOnce(customer);
 
         const result = await registerCustomerUseCase.execute(customer);
@@ -87,7 +87,7 @@ describe("Negative customer tests", () => {
     })
 
     it("should return a 400 error if there is an error while registering the user on the database", async () => {
-        const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com", "pedro123");
+        const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com",false, false, "pedro123");
         customerRepositoryMock.getCustomerByEmail.mockResolvedValueOnce(null);
         customerRepositoryMock.registerCustomer.mockResolvedValueOnce(null);
 
