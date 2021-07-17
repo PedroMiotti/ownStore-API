@@ -15,7 +15,7 @@ export class DeleteCustomerUseCase extends BaseUseCase{
         if(!id){
             result.setError(
                 this.resources.getWithParams(this.resourceKeys.SOME_PARAMETERS_ARE_MISSING, { 
-                    id: id.toString(),
+                    missingParams: "id",
                 }),
                 this.applicationStatusCode.BAD_REQUEST,
             );
@@ -33,10 +33,11 @@ export class DeleteCustomerUseCase extends BaseUseCase{
 
         result.setMessage(
             this.resources.get(this.resourceKeys.CUSTOMER_DELETED_SUCCESSFULLY),
-            this.applicationStatusCode.CREATED,
+            this.applicationStatusCode.SUCCESS,
         );
 
         return result;
 
     }
+
 }
