@@ -9,4 +9,5 @@ export interface ICustomerRepository{
     getCustomerByEmail(email: string): Promise<Customer>;
     getCustomerById(id: number): Promise<Customer>;
     updateCustomer(customer: CustomerProfileDto): Promise<Customer>;
+    deleteCustomer(id: number): Promise<string>;
 }

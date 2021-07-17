@@ -5,13 +5,18 @@
   "PROCESSING_DATA_CLIENT_ERROR": "Erro ao processar dados do cliente !",
   "AUTHORIZATION_REQUIRED": "Autorização obrigatória.",
 
+  
   "EMAIL_ALREADY_IN_USE": "Esse e-mail já esta em uso !",
+  "USER_LOGGED_IN_SUCCESSFULLY": "Usuário logado com sucesso !",
+  "INVALID_EMAIL_OR_PASSWORD": "E-mail ou senha incorretos, tente novamente !",
+  "USER_DOESNT_EXISTS": "Esse usuário não existe",
+
+  
   "CUSTOMER_CREATED_SUCCESSFULLY": "Cliente criado com sucesso !",
-  "CUSTOMER_UPDATED_SUCCESSFULLY": "Usuário atualizado com sucesso !",
+  "CUSTOMER_UPDATED_SUCCESSFULLY": "Cliente atualizado com sucesso !",
+  "CUSTOMER_DELETED_SUCCESSFULLY": "Cliente deletado com sucesso !",
   "ERROR_CREATING_CUSTOMER": "Erro ao criar o cliente !",
   "ERROR_UPDATING_CUSTOMER": "Erro ao atualizar o cliente !",
-  "INVALID_EMAIL_OR_PASSWORD": "E-mail ou senha incorretos, tente novamente !",
-  "USER_LOGGED_IN_SUCCESSFULLY": "Usuário logado com sucesso !",
-  "USER_DOESNT_EXISTS": "Esse usuário não existe"
+  "ERROR_DELETING_CUSTOMER": "Erro ao deletar o cliente !"
 
 }

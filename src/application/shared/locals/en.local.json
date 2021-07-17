@@ -7,12 +7,15 @@
 
 
   "EMAIL_ALREADY_IN_USE": "This e-mail is already in use !",
-  "CUSTOMER_CREATED_SUCCESSFULLY": "Customer was created successfully !",
-  "CUSTOMER_UPDATED_SUCCESSFULLY": "User updated successfully !",
-  "ERROR_CREATING_CUSTOMER": "Error creating customer !",
-  "ERROR_UPDATING_CUSTOMER": "Error updating customer !",
   "INVALID_EMAIL_OR_PASSWORD": "E-mail or password are incorrect !",
   "USER_DOESNT_EXISTS": "This user does not exist !",
-  "USER_LOGGED_IN_SUCCESSFULLY": "User logged in successfully !"
+  "USER_LOGGED_IN_SUCCESSFULLY": "User logged in successfully !",
 	
+
+  "CUSTOMER_CREATED_SUCCESSFULLY": "Customer was created successfully !",
+  "CUSTOMER_UPDATED_SUCCESSFULLY": "Customer updated successfully !",
+  "CUSTOMER_DELETED_SUCCESSFULLY": "Customer deleted successfully !",
+  "ERROR_CREATING_CUSTOMER": "Error creating customer !",
+  "ERROR_UPDATING_CUSTOMER": "Error updating customer !",
+  "ERROR_DELETING_CUSTOMER": "Error deleting customer !"
 }
