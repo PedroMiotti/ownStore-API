@@ -1,5 +1,5 @@
 import { IUser } from "./User.interface";
-import { ISession } from "../Session/ISession";
+import { ISession } from "../session/ISession";
 
 export class User implements IUser{
     id: number;

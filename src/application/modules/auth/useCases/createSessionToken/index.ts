@@ -1,6 +1,6 @@
 import {User} from "../../../../../domain/user/User";
 import {TokenDto} from "../../dto/TokenDto";
-import {ISession} from "../../../../../domain/Session/ISession";
+import {ISession} from "../../../../../domain/session/ISession";
 import {BaseUseCase} from "../../../../shared/useCase/BaseUseCase";
 import {IAuthProvider} from "../../ports/IAuthProvider";
 
