@@ -30,6 +30,7 @@ describe("Positive auth tests", () => {
         const result = await loginUseCase.execute(userLogin);
 
         const data = result.data as TokenDto;
+
         expect(result.success).toBeTruthy();
         expect(result.statusCode).toBe(applicationStatus.SUCCESS);
         expect(result.message).toBe(resources.get(resourceKeys.USER_LOGGED_IN_SUCCESSFULLY));

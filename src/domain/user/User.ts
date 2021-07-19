@@ -14,7 +14,7 @@ export class User implements IUser{
     isAdmin: boolean;
     createdAt: string;
 
-    constructor(firstName: string, lastName: string, email: string, isStaff: boolean, isAdmin: boolean, password?: string) {
+    constructor(firstName?: string, lastName?: string, email?: string, isStaff?: boolean, isAdmin?: boolean, password?: string) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
