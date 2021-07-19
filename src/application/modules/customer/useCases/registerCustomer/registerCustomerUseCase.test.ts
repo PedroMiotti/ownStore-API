@@ -4,9 +4,11 @@ import { mock } from "jest-mock-extended";
 import { Customer } from "../../../../../domain/customer/Customer";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
 import resources, { resourceKeys } from "../../../../shared/locals";
+import { IEmailProvider } from "../../../email/ports/IEmailProvider";
 
 const customerRepositoryMock = mock<ICustomerRepository>();
-const registerCustomerUseCase = new RegisterCustomerUseCase(customerRepositoryMock);
+const emailProviderMock = mock<IEmailProvider>();
+const registerCustomerUseCase = new RegisterCustomerUseCase(customerRepositoryMock, emailProviderMock);
 
 describe("Positive customer tests", () => {
     beforeAll(() => {
@@ -95,8 +97,6 @@ describe("Negative customer tests", () => {
 
         expect(result.success).toBeFalsy();
         expect(result.statusCode).toBe(applicationStatus.BAD_REQUEST);
-        expect(result.error).toBe(
-            resources.get(resourceKeys.ERROR_CREATING_CUSTOMER),
-        );
+        expect(result.error).toBe(resources.get(resourceKeys.ERROR_CREATING_CUSTOMER));
     })
 })

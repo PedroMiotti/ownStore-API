@@ -3,13 +3,16 @@ import { BaseUseCase, IResultT, ResultT, Result } from "../../../../shared/useCa
 import { RegisterCustomerDto } from "../../dto/RegisterCustomerDto";
 import { genSaltSync, hashSync } from 'bcryptjs';
 import { DateTime } from 'luxon';
+import { IEmailProvider } from "../../../email/ports/IEmailProvider";
 
 export class RegisterCustomerUseCase extends BaseUseCase{
     private readonly customerRepository: ICustomerRepository;
+    private readonly emailProvider: IEmailProvider;
 
-    public constructor(customerRepository: ICustomerRepository) {
+    public constructor(customerRepository: ICustomerRepository, emailProvider: IEmailProvider) {
         super();
         this.customerRepository = customerRepository;
+        this.emailProvider = emailProvider;
     }
 
     async execute(customer: RegisterCustomerDto): Promise<IResultT<RegisterCustomerDto>> {
@@ -45,6 +48,7 @@ export class RegisterCustomerUseCase extends BaseUseCase{
         }
 
         // TODO -> Send welcome email to customer
+        // this.emailProvider.send();
 
         result.setData(customer, this.applicationStatusCode.CREATED);
         result.setMessage(

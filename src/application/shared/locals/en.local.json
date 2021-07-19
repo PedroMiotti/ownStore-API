@@ -7,6 +7,7 @@
 
 
   "EMAIL_ALREADY_IN_USE": "This e-mail is already in use !",
+  "CUSTOMER_FOUND_SUCCESSFULLY": "User found successfully !",
   "INVALID_EMAIL_OR_PASSWORD": "E-mail or password are incorrect !",
   "USER_DOESNT_EXISTS": "This user does not exist !",
   "USER_LOGGED_IN_SUCCESSFULLY": "User logged in successfully !",
