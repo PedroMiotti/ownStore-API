@@ -34,5 +34,12 @@ export default {
             EncryptionSaltRounds: process.env.ENCRYPTION_SALT_ROUNDS,
         },
         DefaultLang: "pt",
+        mysql: {
+            host: process.env.MYSQL_HOST,
+            user: process.env.MYSQL_USER,
+            password: process.env.MYSQL_PASSWORD,
+            databaseName: process.env.MYSQL_DATABASE_NAME,
+            connectionLimit: process.env.MYSQL_CONNECTION_LIMIT
+        }
     },
 };
