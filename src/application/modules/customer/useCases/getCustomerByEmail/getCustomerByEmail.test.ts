@@ -3,11 +3,11 @@ import { Customer } from "../../../../../domain/customer/Customer";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
 import resources, { resourceKeys } from "../../../../shared/locals";
 import { ICustomerRepository } from "../../ports/ICustomerRepository";
-import { GetCustomerByIdUseCase} from './index';
+import { GetCustomerByEmailUseCase } from './index';
 
 
 const customerRepositoryMock = mock<ICustomerRepository>();
-const getCustomerByIdUseCase = new GetCustomerByIdUseCase(customerRepositoryMock)
+const getCustomerByEmailUseCase = new GetCustomerByEmailUseCase(customerRepositoryMock)
 
 describe("Positive customer test", () => {
 
@@ -16,14 +16,14 @@ describe("Positive customer test", () => {
     })
 
     beforeEach(() => {
-        customerRepositoryMock.getCustomerById.mockReset();
+        customerRepositoryMock.getCustomerByEmail.mockReset();
     });
 
     it("Should return success if the customer was found", async() => {
         const customer: Customer = new Customer("Pedro", "Miotti", "pedromiotti@hotmail.com", false, false, "pedro123");
-        customerRepositoryMock.getCustomerById.mockResolvedValueOnce(customer);
+        customerRepositoryMock.getCustomerByEmail.mockResolvedValueOnce(customer);
 
-        const result = await getCustomerByIdUseCase.execute(1);
+        const result = await getCustomerByEmailUseCase.execute("pedromiotti@hotmail");
 
         expect(result.success).toBeTruthy();
         expect(result.statusCode).toBe(applicationStatus.SUCCESS);
@@ -42,15 +42,15 @@ describe("Negative customer test", () => {
         customerRepositoryMock.getCustomerById.mockReset();
     });
 
-    it("Should return 400 if the customer id is not provided", async() => {
+    it("Should return 400 if the customer email is not provided", async() => {
 
-        const result = await getCustomerByIdUseCase.execute(null);
+        const result = await getCustomerByEmailUseCase.execute(null);
 
         expect(result.success).toBeFalsy();
         expect(result.statusCode).toBe(applicationStatus.BAD_REQUEST);
         expect(result.error).toBe(
             resources.getWithParams(resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
-                missingParams: `id`,
+                missingParams: `email`,
             }),
         );
     });
@@ -58,7 +58,7 @@ describe("Negative customer test", () => {
     it("Should return 400 if the customer does not exists", async() => {
         customerRepositoryMock.getCustomerById.mockResolvedValueOnce(null);
         
-        const result = await getCustomerByIdUseCase.execute(1);
+        const result = await getCustomerByEmailUseCase.execute("pedromiotti@hotmail");
 
         expect(result.success).toBeFalsy();
         expect(result.statusCode).toBe(applicationStatus.BAD_REQUEST);
