@@ -1,5 +1,4 @@
-import mysql = require("mysql");
-import SqlPool = require("./mysql-connection");
+import SqlPool from "./mysql-connection";
 
 export default class Sql {
   // https://www.npmjs.com/package/mysql

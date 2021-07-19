@@ -5,25 +5,37 @@ import mapper from "mapper-tsk";
 import * as dbData from "./db.mock.json";
 
 class UserModel{
-    // async login(user: UserLoginDto): Promise<User> {
-    //     await Sql.conectar(async (sql: Sql) => {
-
-    //     })
-    // }
-
     async login(user: UserLoginDto): Promise<User> {
-        return new Promise((resolve, reject) => {
-          const founded = dbData.users.find((user) => user.email === "pedromiotti@hotmail.com");
+      let domainUser;
+        await Sql.conectar(async (sql: Sql) => {
+          const founded = await sql.query("select * from user where email = ?", [user.email]);
 
-          if (!founded) {
-            reject(null);
+          if(!founded){
+            return null;
           }
 
-          const domainUser = mapper.mapObject(founded, new User());
+          domainUser = mapper.mapObject(founded, new User());
 
-          resolve(domainUser);
-        });
-      }
+        })
+
+        return domainUser;
+      
+        
+    }
+
+    // async login(user: UserLoginDto): Promise<User> {
+    //     return new Promise((resolve, reject) => {
+    //       const founded = dbData.users.find((user) => user.email === "pedromiotti@hotmail.com");
+
+    //       if (!founded) {
+    //         reject(null);
+    //       }
+
+    //       const domainUser = mapper.mapObject(founded, new User());
+
+    //       resolve(domainUser);
+    //     });
+    //   }
 }
 
 export default new UserModel();

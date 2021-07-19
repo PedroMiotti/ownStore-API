@@ -4,9 +4,11 @@ export default class AppSettings {
     static ServerPort: string;
     static ServerHost: number;
     static ServerOrigins: string;
+    
     static EncryptionSaltRounds: string;
     static JWTEncryptionKey: string;
     static JWTExpirationTime: number;
+
     static MySQLHost: string;
     static MySQLUser: string;
     static MySQLPassword: string;
@@ -20,9 +22,11 @@ export default class AppSettings {
         this.ServerHost = config.server.Host;
         this.ServerPort = config.server.Port;
         this.ServerOrigins = config.server.Origins;
+
         this.EncryptionSaltRounds = config.params.security.EncryptionSaltRounds;
         this.JWTEncryptionKey = config.params.security.jwt.SecretKey;
         this.JWTExpirationTime = config.params.security.jwt.ExpireInSeconds;
+
         this.MySQLHost = config.params.mysql.host;
         this.MySQLUser = config.params.mysql.user;
         this.MySQLPassword = config.params.mysql.password;
