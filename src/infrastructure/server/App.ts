@@ -1,12 +1,11 @@
 import { Server, Application, BodyParser } from "./core/Modules";
 import BaseController from "../../adapter/controllers/base/BaseController";
 import * as helmet from "helmet";
-import AppSettings from "@/application/shared/settings/AppSettings";
+import AppSettings from "../../application/shared/settings/AppSettings";
 import HandlerErrorMiddleware from "../middleware/handleError";
 import config from "../config";
-import resources from "@/application/shared/locals";
+import resources from "../../application/shared/locals";
 import SqlPool from "../database/mysql/mysql-connection";
-import Sql from "../database/mysql/sql";
 
 export default class App {
     public app: Application;
@@ -51,10 +50,9 @@ export default class App {
     }
   
     private runServices(): void {
-      SqlPool.pool.on("connection", (conn) => {
-        console.log("Mysql connected ", conn)
-      })
-
+      // SqlPool.pool.on("connection", (conn) => {
+      //   console.log("Mysql connected ", conn)
+      // })
 
       this.listen();
     }

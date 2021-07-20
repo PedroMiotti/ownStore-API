@@ -1,13 +1,13 @@
-import { UserLoginDto } from "@/application/modules/auth/dto/UserLoginDto";
-import { User } from "@/domain/user/User";
-import Sql from "@/infrastructure/database/mysql/sql";
+import { UserLoginDto } from "../../../application/modules/auth/dto/UserLoginDto";
+import { User } from "../../../domain/user/User";
+import Sql from "../../../infrastructure/database/mysql/sql";
 import mapper from "mapper-tsk";
 import * as dbData from "./db.mock.json";
 
 class UserModel{
     async login(user: UserLoginDto): Promise<User> {
       let domainUser;
-        await Sql.conectar(async (sql: Sql) => {
+        const result = await Sql.conectar(async (sql: Sql) => {
           const founded = await sql.query("select * from user where email = ?", [user.email]);
 
           if(!founded){
@@ -17,6 +17,7 @@ class UserModel{
           domainUser = mapper.mapObject(founded, new User());
 
         })
+        console.log(result)
 
         return domainUser;
       

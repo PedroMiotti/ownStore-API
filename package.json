@@ -2,11 +2,11 @@
   "name": "ownstore-api",
   "version": "1.0.0",
   "description": "OwnStore API",
-  "main": "./build/index.js",
+  "main": "./build/src/index.js",
   "scripts": {
     "test": "npm run build && jest ",
     "build": "tsc --sourceMap false",
-    "start": "node build/index",
+    "start": "npm run build && node build/src/index",
     "release": "semantic-release --no-ci",
     "dev": "npm run build && ts-node-dev -r tsconfig-paths/register src/index.ts"
   },
