@@ -1,5 +1,5 @@
 import { mock } from "jest-mock-extended";
-import { Customer } from "../../../../../domain/customer/Customer";
+import { Customer } from "@/domain/customer/Customer";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
 import resources, { resourceKeys } from "../../../../shared/locals";
 import { ICustomerRepository } from "../../ports/ICustomerRepository";
@@ -19,8 +19,8 @@ describe("Positive customer test", () => {
         customerRepositoryMock.getCustomerById.mockReset();
     });
 
-    it("Should return the customer that was found", async() => {
-        const customer: Customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com", false, false, "pedro123");
+    it("Should return success if the customer was found", async() => {
+        const customer: Customer = new Customer("Pedro", "Miotti", "pedromiotti@hotmail.com", false, false, "pedro123");
         customerRepositoryMock.getCustomerById.mockResolvedValueOnce(customer);
 
         const result = await getCustomerByIdUseCase.execute(1);

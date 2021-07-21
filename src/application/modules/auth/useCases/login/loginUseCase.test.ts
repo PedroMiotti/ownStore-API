@@ -4,7 +4,7 @@ import { mock } from "jest-mock-extended";
 import { IAuthProvider } from "../../ports/IAuthProvider";
 import { LoginUseCase } from "./index";
 import { UserLoginDto } from "../../dto/UserLoginDto";
-import { User } from "../../../../../domain/user/User";
+import { User } from "@/domain/user/User";
 import { TokenDto } from "../../dto/TokenDto";
 
 const authProviderMock = mock<IAuthProvider>();
@@ -30,6 +30,7 @@ describe("Positive auth tests", () => {
         const result = await loginUseCase.execute(userLogin);
 
         const data = result.data as TokenDto;
+
         expect(result.success).toBeTruthy();
         expect(result.statusCode).toBe(applicationStatus.SUCCESS);
         expect(result.message).toBe(resources.get(resourceKeys.USER_LOGGED_IN_SUCCESSFULLY));

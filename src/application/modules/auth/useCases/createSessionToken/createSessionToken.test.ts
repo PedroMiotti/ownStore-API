@@ -1,6 +1,6 @@
 import { mock } from "jest-mock-extended";
 import { CreateSessionTokenUseCase } from ".";
-import { User } from "../../../../../domain/user/User";
+import { User } from "@/domain/user/User";
 import resources from "../../../../shared/locals";
 import { IAuthProvider } from "../../ports/IAuthProvider";
 

@@ -1,6 +1,5 @@
-import { ICustomer } from "../../../../domain/customer/Customer.interface";
 import {RegisterCustomerDto} from "../dto/RegisterCustomerDto";
-import {Customer} from "../../../../domain/customer/Customer";
+import {Customer} from "@/domain/customer/Customer";
 import { CustomerProfileDto } from "../dto/CustomerProfileDto";
 
 
