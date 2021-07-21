@@ -3,11 +3,9 @@ import {ICustomerRepository} from "../../ports/ICustomerRepository";
 import {IAuthProvider} from "../../../auth/ports/IAuthProvider";
 import {UpdateCustomerProfileUseCase} from "./index";
 import resources, {resourceKeys} from "../../../../shared/locals";
-import {UserLoginDto} from "../../../auth/dto/UserLoginDto";
-import {User} from "../../../../../domain/user/User";
 import {TokenDto} from "../../../auth/dto/TokenDto";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
-import { Customer } from "../../../../../domain/customer/Customer";
+import { Customer } from "@/domain/customer/Customer";
 import { CustomerProfileDto } from "../../dto/CustomerProfileDto";
 
 

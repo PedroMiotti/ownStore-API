@@ -1,6 +1,6 @@
-import { UserLoginDto } from "../../../application/modules/auth/dto/UserLoginDto";
-import { User } from "../../../domain/user/User";
-import Sql from "../../../infrastructure/database/mysql/sql";
+import { UserLoginDto } from "@/application/modules/auth/dto/UserLoginDto";
+import { User } from "@/domain/user/User";
+import Sql from "@/infrastructure/database/mysql/sql";
 import mapper from "mapper-tsk";
 import * as dbData from "./db.mock.json";
 

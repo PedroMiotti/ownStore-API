@@ -1,6 +1,6 @@
 import { BaseUseCase, ResultT, Result, IResultT } from "../../../../shared/useCase/BaseUseCase";
 import { ICustomerRepository } from "../../ports/ICustomerRepository";
-import { Customer } from '../../../../../domain/customer/Customer'
+import { Customer } from '@/domain/customer/Customer'
 
 
 export class GetCustomerByIdUseCase extends BaseUseCase{

@@ -1,6 +1,6 @@
-import resources, { resourceKeys, Resources } from "../../../application/shared/locals";
-export { ApplicationError } from "../../../application/shared/errors/ApplicationError";
-import applicationStatus from "../../../application/shared/status/applicationStatusCodes";
+import resources, { resourceKeys, Resources } from "@/application/shared/locals";
+export { ApplicationError } from "@/application/shared/errors/ApplicationError";
+import applicationStatus from "@/application/shared/status/applicationStatusCodes";
 import { Validator } from "validator-tsk";
 import mapper, { IMap } from "mapper-tsk";
 

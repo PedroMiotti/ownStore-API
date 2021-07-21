@@ -1,4 +1,4 @@
-import applicationStatus from "../../../../application/shared/status/applicationStatusCodes";
+import applicationStatus from "@/application/shared/status/applicationStatusCodes";
 import httpStatus from "./httpStatus";
 
 const statusMapping: { [key: string]: number } = {};

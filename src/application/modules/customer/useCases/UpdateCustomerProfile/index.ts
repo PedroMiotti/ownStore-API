@@ -1,8 +1,6 @@
 import { BaseUseCase, Result, IResultT, ResultT } from "../../../../shared/useCase/BaseUseCase";
 import { ICustomerRepository } from "../../ports/ICustomerRepository";
-import { Customer } from "../../../../../domain/customer/Customer";
 import { TokenDto } from "../../../auth/dto/TokenDto";
-import { UserLoginDto } from "../../../auth/dto/UserLoginDto";
 import {CreateSessionTokenUseCase} from "../../../auth/useCases/createSessionToken";
 import {IAuthProvider} from "../../../auth/ports/IAuthProvider";
 import { CustomerProfileDto } from "../../dto/CustomerProfileDto";

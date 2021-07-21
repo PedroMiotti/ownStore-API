@@ -1,7 +1,7 @@
 import {BaseUseCase, Result, IResultT, ResultT } from "../../../../shared/useCase/BaseUseCase";
 import { UserLoginDto } from "../../dto/UserLoginDto";
 import { TokenDto } from "../../dto/TokenDto";
-import { User } from "../../../../../domain/user/User";
+import { User } from "@/domain/user/User";
 import { IAuthProvider } from "../../ports/IAuthProvider";
 import { CreateSessionTokenUseCase } from "../createSessionToken";
 

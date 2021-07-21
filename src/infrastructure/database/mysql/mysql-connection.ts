@@ -1,7 +1,7 @@
 // MySQL
 import mysql = require("mysql");
 
-import AppSettings from "../../../application/shared/settings/AppSettings";
+import AppSettings from "@/application/shared/settings/AppSettings";
 
 
 export default class SqlPool {

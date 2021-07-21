@@ -1,7 +1,7 @@
-import { HttpStatusResolver } from "../../../adapter/controllers/base/httpResponse/HttpStatusResolver";
-import { ApplicationError } from "../../../application/shared/errors/ApplicationError";
+import { HttpStatusResolver } from "@/adapter/controllers/base/httpResponse/HttpStatusResolver";
+import { ApplicationError } from "@/application/shared/errors/ApplicationError";
 import { Request, Response, NextFunction } from "../../server/core/Modules";
-import resources from "../../../application/shared/locals";
+import resources from "@/application/shared/locals";
 import { Result } from "result-tsk";
 import config from "../../config";
 

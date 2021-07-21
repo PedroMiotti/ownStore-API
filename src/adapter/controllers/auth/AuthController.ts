@@ -1,4 +1,4 @@
-import { UserLoginDto } from "../../../application/modules/auth/dto/UserLoginDto";
+import { UserLoginDto } from "@/application/modules/auth/dto/UserLoginDto";
 import BaseController, { Request, Response, NextFunction } from "../base/BaseController";
 import { loginUseCase } from "./container";
 

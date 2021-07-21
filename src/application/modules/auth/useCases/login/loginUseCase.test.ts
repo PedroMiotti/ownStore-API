@@ -4,7 +4,7 @@ import { mock } from "jest-mock-extended";
 import { IAuthProvider } from "../../ports/IAuthProvider";
 import { LoginUseCase } from "./index";
 import { UserLoginDto } from "../../dto/UserLoginDto";
-import { User } from "../../../../../domain/user/User";
+import { User } from "@/domain/user/User";
 import { TokenDto } from "../../dto/TokenDto";
 
 const authProviderMock = mock<IAuthProvider>();
