@@ -2,18 +2,34 @@
 import mysql = require("mysql");
 
 import AppSettings from "@/application/shared/settings/AppSettings";
-
+import {Pool, PoolConfig, PoolConnection} from "mysql";
 
 export default class SqlPool {
-  
-	public static readonly pool = mysql.createPool({
-    connectionLimit: parseInt(AppSettings.MySQLConnectionLimit),
-    host: AppSettings.MySQLHost,
-    user: AppSettings.MySQLUser,
-    password: AppSettings.MySQLPassword,
-    database: AppSettings.MySQLDatabaseName,
-  });
-  
+    static connectionLimit: number;
+    static host: string;
+    static user: string;
+    static password: string;
+    static database: string;
+
+    public static init(){
+        this.connectionLimit =  parseInt(AppSettings.MySQLConnectionLimit);
+        this.host = AppSettings.MySQLHost;
+        this.user = AppSettings.MySQLUser;
+        this.password = AppSettings.MySQLPassword;
+        this.database = AppSettings.MySQLDatabaseName;
+    }
+    
+	public static createConnectionPool(): Pool{
+        return mysql.createPool({
+            connectionLimit: this.connectionLimit,
+            host: this.host,
+            user: this.user,
+            password: this.password,
+            database: this.database,
+        });
+    }
+
+
 }
 
 

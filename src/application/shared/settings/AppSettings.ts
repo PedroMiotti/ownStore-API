@@ -33,6 +33,5 @@ export default class AppSettings {
         this.MySQLDatabaseName = config.params.mysql.databaseName;
         this.MySQLConnectionLimit = config.params.mysql.connectionLimit;
 
-
     }
 }

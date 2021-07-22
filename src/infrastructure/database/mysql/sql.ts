@@ -12,7 +12,7 @@ export default class Sql {
     callback: (sql: Sql) => Promise<void>
   ): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      SqlPool.pool.getConnection((error, connection) => {
+      SqlPool.createConnectionPool().getConnection((error, connection) => {
         if (error) {
           reject(error);
           return;

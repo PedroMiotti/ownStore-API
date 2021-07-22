@@ -1,42 +1,30 @@
-import { UserLoginDto } from "@/application/modules/auth/dto/UserLoginDto";
-import { User } from "@/domain/user/User";
+import {UserLoginDto} from "@/application/modules/auth/dto/UserLoginDto";
+import {User} from "@/domain/user/User";
 import Sql from "@/infrastructure/database/mysql/sql";
 import mapper from "mapper-tsk";
+import applicationStatus from "@/application/shared/status/applicationStatusCodes";
+
+
 import * as dbData from "./db.mock.json";
 
-class UserModel{
+class UserModel {
     async login(user: UserLoginDto): Promise<User> {
-      let domainUser;
-        const result = await Sql.conectar(async (sql: Sql) => {
-          const founded = await sql.query("select * from user where email = ?", [user.email]);
+        let domainUser;
 
-          if(!founded){
-            return null;
-          }
+        await Sql.conectar(async (sql: Sql) => {
+            const founded = await sql.query("select * from usefefer where password = ?", [user.email]);
 
-          domainUser = mapper.mapObject(founded, new User());
+            domainUser = mapper.mapObject(founded, new User());
+        }).catch(e => {
+            console.log("ERROR 1" + e);
+            return e;
+        });
 
-        })
-        console.log(result)
 
         return domainUser;
-      
-        
+
     }
 
-    // async login(user: UserLoginDto): Promise<User> {
-    //     return new Promise((resolve, reject) => {
-    //       const founded = dbData.users.find((user) => user.email === "pedromiotti@hotmail.com");
-
-    //       if (!founded) {
-    //         reject(null);
-    //       }
-
-    //       const domainUser = mapper.mapObject(founded, new User());
-
-    //       resolve(domainUser);
-    //     });
-    //   }
 }
 
 export default new UserModel();
