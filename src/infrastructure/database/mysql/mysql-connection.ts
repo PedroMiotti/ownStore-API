@@ -2,7 +2,7 @@
 import mysql = require("mysql");
 
 import AppSettings from "@/application/shared/settings/AppSettings";
-import {Pool, PoolConfig, PoolConnection} from "mysql";
+import { Pool } from "mysql";
 
 export default class SqlPool {
     static connectionLimit: number;

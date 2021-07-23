@@ -1,9 +1,9 @@
-import {mock} from "jest-mock-extended";
-import {ICustomerRepository} from "../../ports/ICustomerRepository";
-import {IAuthProvider} from "../../../auth/ports/IAuthProvider";
-import {UpdateCustomerProfileUseCase} from "./index";
-import resources, {resourceKeys} from "../../../../shared/locals";
-import {TokenDto} from "../../../auth/dto/TokenDto";
+import { mock } from "jest-mock-extended";
+import { ICustomerRepository } from "../../ports/ICustomerRepository";
+import { IAuthProvider } from "../../../auth/ports/IAuthProvider";
+import { UpdateCustomerProfileUseCase } from "./index";
+import resources, { resourceKeys } from "../../../../shared/locals";
+import { TokenDto } from "../../../auth/dto/TokenDto";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
 import { Customer } from "@/domain/customer/Customer";
 import { CustomerProfileDto } from "../../dto/CustomerProfileDto";

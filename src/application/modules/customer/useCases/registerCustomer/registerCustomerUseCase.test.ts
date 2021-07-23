@@ -6,6 +6,7 @@ import applicationStatus from "../../../../shared/status/applicationStatusCodes"
 import resources, { resourceKeys } from "../../../../shared/locals";
 import { IEmailProvider } from "../../../email/ports/IEmailProvider";
 
+
 const customerRepositoryMock = mock<ICustomerRepository>();
 const emailProviderMock = mock<IEmailProvider>();
 const registerCustomerUseCase = new RegisterCustomerUseCase(customerRepositoryMock, emailProviderMock);
