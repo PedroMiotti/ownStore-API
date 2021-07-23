@@ -5,7 +5,7 @@ import { UpdateCustomerProfileUseCase } from "./index";
 import resources, { resourceKeys } from "../../../../shared/locals";
 import { TokenDto } from "../../../auth/dto/TokenDto";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
-import { Customer } from "@/domain/customer/Customer";
+import { Customer } from "../../../../../domain/customer/Customer";
 import { CustomerProfileDto } from "../../dto/CustomerProfileDto";
 
 
