@@ -4,6 +4,7 @@ import { RegisterCustomerDto } from "../../dto/RegisterCustomerDto";
 import { genSaltSync, hashSync } from 'bcryptjs';
 import { DateTime } from 'luxon';
 import { IEmailProvider } from "../../../email/ports/IEmailProvider";
+import AppSettings from "@/application/shared/settings/AppSettings";
 
 export class RegisterCustomerUseCase extends BaseUseCase{
     private readonly customerRepository: ICustomerRepository;
@@ -33,7 +34,7 @@ export class RegisterCustomerUseCase extends BaseUseCase{
             return result;
         }
 
-        const salt = genSaltSync(10); //TODO -> Swap second parameter for ENCRYPTION_SALT_ROUNDS
+        const salt = genSaltSync(parseInt(AppSettings.EncryptionSaltRounds));
         const passwordHash = hashSync(customer.password, salt);
         customer.password = passwordHash;
         customer.createdAt = DateTime.local().toISO();
@@ -47,7 +48,7 @@ export class RegisterCustomerUseCase extends BaseUseCase{
             return result;
         }
 
-        // TODO -> Send welcome email to customer
+        // TODO -> Send email verifier to customer
         // this.emailProvider.send();
 
         result.setData(customer, this.applicationStatusCode.CREATED);

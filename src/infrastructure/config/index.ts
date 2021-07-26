@@ -32,6 +32,7 @@ export default {
                 ExpireInSeconds: 3600,
             },
             EncryptionSaltRounds: process.env.ENCRYPTION_SALT_ROUNDS,
+            DefaultUserPasswd: process.env.DEFAULT_USER_PASSWD,
         },
         DefaultLang: "pt",
         mysql: {

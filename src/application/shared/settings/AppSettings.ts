@@ -15,6 +15,7 @@ export default class AppSettings {
     static MySQLDatabaseName: string;
     static MySQLConnectionLimit: string;
 
+    static DefaultUserPasswd: string;
 
     static init(config: { [key: string]: any }): void {
         this.DefaultLang = config.params.DefaultLang;
@@ -32,6 +33,8 @@ export default class AppSettings {
         this.MySQLPassword = config.params.mysql.password;
         this.MySQLDatabaseName = config.params.mysql.databaseName;
         this.MySQLConnectionLimit = config.params.mysql.connectionLimit;
+
+        this.DefaultUserPasswd = config.params.security.DefaultUserPasswd;
 
     }
 }

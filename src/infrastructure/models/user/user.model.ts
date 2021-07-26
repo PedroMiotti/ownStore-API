@@ -11,17 +11,35 @@ class UserModel {
     async login(user: UserLoginDto): Promise<User> {
         let domainUser;
 
-        await Sql.conectar(async (sql: Sql) => {
-            const founded = await sql.query("select * from usefefer where password = ?", [user.email]);
+        // await Sql.conectar(async (sql: Sql) => {
+        //     return new Promise(( async (resolve, reject) => {
+        //         try{
+        //             const founded = await sql.query("select * from usefefer where password = ?", [user.email]);
+        //
+        //             domainUser = mapper.mapObject(founded, new User());
+        //             resolve(domainUser);
+        //         }
+        //         catch (e) {
+        //             console.log(e)
+        //             reject(e);
+        //         }
+        //     }))
+        //
+        // })
 
-            domainUser = mapper.mapObject(founded, new User());
-        }).catch(e => {
-            console.log("ERROR 1" + e);
-            return e;
-        });
+        try {
+            await Sql.conectar(async (sql: Sql) => {
+                const founded = await sql.query("select * from usefefer where password = ?", [user.email]);
 
+                domainUser = mapper.mapObject(founded, new User());
 
-        return domainUser;
+            })
+
+            return domainUser;
+        }
+        catch (e){
+            console.log(e)
+        }
 
     }
 

@@ -2,7 +2,7 @@ import { UserLoginDto } from "@/application/modules/auth/dto/UserLoginDto";
 import { IAuthProvider } from "@/application/modules/auth/ports/IAuthProvider";
 import { ISession } from "@/domain/session/ISession";
 import { User } from "@/domain/user/User";
-import {ApplicationError, BaseProvider} from "../base/BaseProvider";
+import { ApplicationError, BaseProvider } from "../base/BaseProvider";
 import { sign, verify } from "jsonwebtoken";
 import AppSettings from "@/application/shared/settings/AppSettings";
 import UserModel from "@/infrastructure/models/user/user.model";
@@ -21,6 +21,7 @@ export class AuthProvider extends BaseProvider implements IAuthProvider{
                 resolve(userFound);
 
             }catch (e) {
+                console.log(e);
                 throw new ApplicationError(
                     e.message,
                     e.code || applicationStatus.INTERNAL_ERROR,

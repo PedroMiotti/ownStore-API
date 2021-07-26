@@ -7,12 +7,13 @@
 
   
   "EMAIL_ALREADY_IN_USE": "Esse e-mail já esta em uso !",
-  "CUSTOMER_FOUND_SUCCESSFULLY": "Usuário retornado com sucesso !",
   "USER_LOGGED_IN_SUCCESSFULLY": "Usuário logado com sucesso !",
   "INVALID_EMAIL_OR_PASSWORD": "E-mail ou senha incorretos, tente novamente !",
+  "ERROR_CREATING_USER": "Erro ao criar o usuário !",
   "USER_DOESNT_EXISTS": "Esse usuário não existe",
+  "USER_CREATED_SUCCESSFULLY": "Usuário criado com sucesso !",
 
-  
+  "CUSTOMER_FOUND_SUCCESSFULLY": "Usuário retornado com sucesso !",
   "CUSTOMER_CREATED_SUCCESSFULLY": "Cliente criado com sucesso !",
   "CUSTOMER_UPDATED_SUCCESSFULLY": "Cliente atualizado com sucesso !",
   "CUSTOMER_DELETED_SUCCESSFULLY": "Cliente deletado com sucesso !",
