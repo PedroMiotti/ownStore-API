@@ -3,6 +3,7 @@ import { CreateSessionTokenUseCase } from ".";
 import { User } from "../../../../../domain/user/User";
 import resources from "../../../../shared/locals";
 import { IAuthProvider } from "../../ports/IAuthProvider";
+import AppSettings from "../../../../shared/settings/AppSettings";
 
 
 const authProviderMock = mock<IAuthProvider>();
@@ -24,7 +25,7 @@ describe("Create session tokens", () => {
 
         const token = await createSessionTokenUseCase.execute(authenticatedUser);
         expect(token.token).toBe(mockToken);
-        expect(token.expireIn).toBe(365 * 24 * 60 * 60 * 1000);
+        expect(token.expireIn).toBe(AppSettings.JWTExpirationTime);
     })
 
 })

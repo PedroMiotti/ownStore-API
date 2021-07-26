@@ -19,7 +19,7 @@ const userCreateAdmin: CreateUserDto = { firstName: "Pedro", lastName: "Miotti",
 const dateNow: string = "2021-07-26T11:25:13.747-03:00";
 const salt: string = "$2a$10$vQ4px79jV9R.wJvBxsA.LO";
 const hashedPasswd: string = "$2a$10$g04MiYGnWqNh6O08Wp7iSuTtonAkPjrJSHeZY9DoN6BJYR7q2b4x2";
-const adminSession: ISession = {id: 1, email: "pedromiotti@hotmail.com", name: "Pedro Miotti", emailVerified: true, isAdmin: false, isStaff: true, exp: 12, iat: 1};
+const adminSession: ISession = {id: 1, email: "pedromiotti@hotmail.com", name: "Pedro Miotti", emailVerified: true, isAdmin: true, isStaff: true, exp: 12, iat: 1};
 const nonAdminSession: ISession = {id: 1, email: "pedromiotti@hotmail.com", name: "Pedro Miotti", emailVerified: true, isAdmin: false, isStaff: true, exp: 12, iat: 1};
 
 describe("Positive user-admin tests", () => {
@@ -52,7 +52,7 @@ describe("Positive user-admin tests", () => {
     })
 
     it("Should return a success if the admin user was created", async () => {
-        const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com",true, false );
+        const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com",true, true );
 
         adminRepositoryMock.createUser.mockResolvedValueOnce(user);
         adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);

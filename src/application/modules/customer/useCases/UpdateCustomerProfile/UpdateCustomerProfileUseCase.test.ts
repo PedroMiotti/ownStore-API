@@ -7,6 +7,7 @@ import { TokenDto } from "../../../auth/dto/TokenDto";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
 import { Customer } from "../../../../../domain/customer/Customer";
 import { CustomerProfileDto } from "../../dto/CustomerProfileDto";
+import AppSettings from "../../../../shared/settings/AppSettings";
 
 
 const customerRepositoryMock = mock<ICustomerRepository>();
@@ -36,7 +37,7 @@ describe("Positive auth tests", () => {
         expect(result.success).toBeTruthy();
         expect(result.statusCode).toBe(applicationStatus.SUCCESS);
         expect(result.message).toBe(resources.get(resourceKeys.CUSTOMER_UPDATED_SUCCESSFULLY));
-        expect(data.expireIn).toBe(365 * 24 * 60 * 60 * 1000);
+        expect(data.expireIn).toBe(AppSettings.JWTExpirationTime);
     })
 
 });
