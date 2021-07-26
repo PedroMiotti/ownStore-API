@@ -29,6 +29,8 @@ export class User implements IUser{
             email: this.email,
             emailVerified: this.emailVerified,
             name: this.firstName + this.lastName,
+            isAdmin: this.isAdmin,
+            isStaff: this.isStaff
         } as ISession;
     }
 }

@@ -12,6 +12,7 @@
   "ERROR_CREATING_USER": "Erro ao criar o usuário !",
   "USER_DOESNT_EXISTS": "Esse usuário não existe",
   "USER_CREATED_SUCCESSFULLY": "Usuário criado com sucesso !",
+  "CREATE_ADMIN_USER_NOT_AUTHORIZED": "Apenas um usuário administrador pode criar outro usuário administrador !",
 
   "CUSTOMER_FOUND_SUCCESSFULLY": "Usuário retornado com sucesso !",
   "CUSTOMER_CREATED_SUCCESSFULLY": "Cliente criado com sucesso !",

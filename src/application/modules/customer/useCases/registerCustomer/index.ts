@@ -4,7 +4,7 @@ import { RegisterCustomerDto } from "../../dto/RegisterCustomerDto";
 import { genSaltSync, hashSync } from 'bcryptjs';
 import { DateTime } from 'luxon';
 import { IEmailProvider } from "../../../email/ports/IEmailProvider";
-import AppSettings from "@/application/shared/settings/AppSettings";
+import AppSettings from "../../../../shared/settings/AppSettings";
 
 export class RegisterCustomerUseCase extends BaseUseCase{
     private readonly customerRepository: ICustomerRepository;

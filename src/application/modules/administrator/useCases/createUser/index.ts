@@ -1,9 +1,11 @@
 import {BaseUseCase, IResultT, ResultT, Result} from "../../../../shared/useCase/BaseUseCase";
 import {CreateUserDto} from "@/application/modules/administrator/dto/CreateUserDto";
-import AppSettings from "@/application/shared/settings/AppSettings";
+import AppSettings from "../../../../shared/settings/AppSettings";
 import { IAdminRepository } from "@/application/modules/administrator/ports/AdminRepository";
 import { IDateProvider } from "@/application/shared/ports/IDateProvider";
 import { IEncryptionProvider } from "@/application/shared/ports/IEncryptionProvider";
+import {User} from "@/domain/user/User";
+import {ISession} from "@/domain/session/ISession";
 
 export class CreateUserUseCase extends BaseUseCase {
     private readonly adminRepository: IAdminRepository;
@@ -17,14 +19,20 @@ export class CreateUserUseCase extends BaseUseCase {
         this.encryptionProvider = encryptionProvider;
     }
 
-    async execute(user: CreateUserDto): Promise<IResultT<CreateUserDto>> {
-        const result = new ResultT<CreateUserDto>();
+    async execute(user: CreateUserDto, session: ISession): Promise<IResultT<User>> {
+        const result = new ResultT<User>();
 
         if (!this.isValidRequest(result, user)) {
             return result;
         }
 
-        // TODO -> Check if user id admin
+        if(user.isAdmin && !session.isAdmin){
+            result.setError(
+                this.resources.get(this.resourceKeys.CREATE_ADMIN_USER_NOT_AUTHORIZED),
+                this.applicationStatusCode.UNAUTHORIZED
+            );
+            return result;
+        }
 
         const doesUserExists = await this.adminRepository.getUserByEmail(user.email);
         if (doesUserExists) {
@@ -44,19 +52,19 @@ export class CreateUserUseCase extends BaseUseCase {
         user.password = passwdHash;
         user.createdAt = this.dateProvider.getDateNow();
 
-        const wasRegistered = await this.adminRepository.createUser(user);
+        const wasRegistered: User = await this.adminRepository.createUser(user);
         if (!wasRegistered) {
             result.setError(
                 this.resources.get(this.resourceKeys.ERROR_CREATING_USER),
-                this.applicationStatusCode.BAD_REQUEST
+                this.applicationStatusCode.INTERNAL_ERROR
             );
             return result;
         }
 
-        result.setData(user, this.applicationStatusCode.CREATED);
+        result.setData(wasRegistered, this.applicationStatusCode.CREATED);
 
         result.setMessage(
-            this.resources.get(this.resourceKeys.CUSTOMER_CREATED_SUCCESSFULLY),
+            this.resources.get(this.resourceKeys.USER_CREATED_SUCCESSFULLY),
             this.applicationStatusCode.CREATED,
         );
 
@@ -70,8 +78,6 @@ export class CreateUserUseCase extends BaseUseCase {
         validations["email"] = user.email;
         validations["firstName"] = user.firstName;
         validations["lastName"] = user.lastName;
-        validations["isAdmin"] = user.isAdmin;
-        validations["isStaff"] = user.isStaff;
 
         return this.validator.isValidEntry(result, validations);
     }

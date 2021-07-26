@@ -1,8 +1,9 @@
-import {Server, Application, BodyParser} from "./core/Modules";
+import { Server, Application, BodyParser } from "./core/Modules";
 import BaseController from "@/adapter/controllers/base/BaseController";
 import resources from "@/application/shared/locals";
 import AppSettings from "@/application/shared/settings/AppSettings";
 import HandlerErrorMiddleware from "../middleware/handleError";
+import AuthorizationMiddleware from '../middleware/authorization/jwt';
 import config from "../config";
 import * as helmet from "helmet";
 import SqlPool from "@/infrastructure/database/mysql/mysql-connection";
@@ -22,8 +23,7 @@ export default class App {
     public loadMiddleware(): void {
         this.app.use(helmet());
         this.app.use(BodyParser());
-        //   this.app.use(localizationMiddleware.handler);
-        //   this.app.use(authorizationMiddleware.handler);
+        this.app.use(AuthorizationMiddleware.handler);
     }
 
     private loadControllers(controllers: BaseController[]): void {
