@@ -29,7 +29,7 @@ export default {
         security: {
             jwt: {
                 SecretKey: process.env.JWT_SECRET_KEY,
-                ExpireInSeconds: 3600,
+                ExpireInSeconds: process.env.JWT_EXPIRE_TIME,
             },
             EncryptionSaltRounds: process.env.ENCRYPTION_SALT_ROUNDS,
             DefaultUserPasswd: process.env.DEFAULT_USER_PASSWD,

@@ -6,6 +6,7 @@ import { LoginUseCase } from "./index";
 import { UserLoginDto } from "../../dto/UserLoginDto";
 import { User } from "../../../../../domain/user/User";
 import { TokenDto } from "../../dto/TokenDto";
+import AppSettings from "../../../../shared/settings/AppSettings";
 
 const authProviderMock = mock<IAuthProvider>();
 const loginUseCase = new LoginUseCase(authProviderMock);
@@ -34,7 +35,7 @@ describe("Positive auth tests", () => {
         expect(result.success).toBeTruthy();
         expect(result.statusCode).toBe(applicationStatus.SUCCESS);
         expect(result.message).toBe(resources.get(resourceKeys.USER_LOGGED_IN_SUCCESSFULLY));
-        expect(data.expireIn).toBe(365 * 24 * 60 * 60 * 1000);
+        expect(data.expireIn).toBe(AppSettings.JWTExpirationTime);
     })
 })
 
