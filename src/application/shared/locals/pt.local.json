@@ -10,10 +10,13 @@
   "USER_LOGGED_IN_SUCCESSFULLY": "Usuário logado com sucesso !",
   "INVALID_EMAIL_OR_PASSWORD": "E-mail ou senha incorretos, tente novamente !",
   "ERROR_CREATING_USER": "Erro ao criar o usuário !",
+  "ERROR_DELETING_USER": "Erro ao deletar o usuário !",
   "USER_DOESNT_EXISTS": "Esse usuário não existe",
   "USER_CREATED_SUCCESSFULLY": "Usuário criado com sucesso !",
+  "USER_DELETED_SUCCESSFULLY": "Usuário deletado com sucesso !",
   "CREATE_ADMIN_USER_NOT_AUTHORIZED": "Apenas um usuário administrador pode criar outro usuário administrador !",
   "USERS_RETRIEVED_SUCCESSFULLY": "Usuários retornados com sucesso !",
+  "DELETE_USER_NOT_AUTHORIZED": "Apenas um usuário administrador pode deletar outro usuário !",
 
   "CUSTOMER_FOUND_SUCCESSFULLY": "Usuário retornado com sucesso !",
   "CUSTOMER_CREATED_SUCCESSFULLY": "Cliente criado com sucesso !",

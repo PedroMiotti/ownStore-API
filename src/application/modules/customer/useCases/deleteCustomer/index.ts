@@ -26,7 +26,7 @@ export class DeleteCustomerUseCase extends BaseUseCase{
         if(!deletedCustomer){
             result.setError(
                 this.resources.get(this.resourceKeys.ERROR_DELETING_CUSTOMER),
-                this.applicationStatusCode.BAD_REQUEST
+                this.applicationStatusCode.INTERNAL_ERROR
             );
             return result;
         }

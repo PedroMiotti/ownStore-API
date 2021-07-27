@@ -10,10 +10,14 @@
   "INVALID_EMAIL_OR_PASSWORD": "E-mail or password are incorrect !",
   "USER_DOESNT_EXISTS": "This user does not exist !",
   "ERROR_CREATING_USER": "Error creating user !",
+  "ERROR_DELETING_USER": "Error deleting user !",
   "USER_LOGGED_IN_SUCCESSFULLY": "User logged in successfully !",
   "USER_CREATED_SUCCESSFULLY": "User was created successfully !",
+  "USER_DELETED_SUCCESSFULLY": "User was deleted successfully !",
   "CREATE_ADMIN_USER_NOT_AUTHORIZED": "Only a admin user can create another admin user !",
   "USERS_RETRIEVED_SUCCESSFULLY": "Users retrieved successfully !",
+  "DELETE_USER_NOT_AUTHORIZED": "Only a admin user can delete another user !",
+
 
   "CUSTOMER_FOUND_SUCCESSFULLY": "User found successfully !",
   "CUSTOMER_CREATED_SUCCESSFULLY": "Customer was created successfully !",

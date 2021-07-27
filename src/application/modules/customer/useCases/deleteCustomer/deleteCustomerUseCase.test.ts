@@ -50,14 +50,13 @@ describe("Negative customer tests", () => {
         );
     });
 
-    it("Should return a 400 error if there is an error on the db", async() => {
+    it("Should return a 500 error if there is an error on the db", async() => {
         customerRepositoryMock.deleteCustomer.mockResolvedValueOnce(null);
-
 
         const result = await deleteCustomerUseCase.execute(1);
 
         expect(result.success).toBeFalsy();
-        expect(result.statusCode).toBe(applicationStatusCodes.BAD_REQUEST);
+        expect(result.statusCode).toBe(applicationStatusCodes.INTERNAL_ERROR);
         expect(result.error).toBe(resources.get(resourceKeys.ERROR_DELETING_CUSTOMER));
     });
 });

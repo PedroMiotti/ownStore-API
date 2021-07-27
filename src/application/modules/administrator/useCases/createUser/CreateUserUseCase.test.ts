@@ -1,11 +1,11 @@
-import resources, { resourceKeys } from "../../../../shared/locals";
-import { User } from "../../../../../domain/user/User";
+import resources, {resourceKeys} from "../../../../shared/locals";
+import {User} from "../../../../../domain/user/User";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
-import { IAdminRepository } from "../../ports/AdminRepository";
-import { mock } from "jest-mock-extended";
-import { IEncryptionProvider } from "../../../../shared/ports/IEncryptionProvider";
-import { IDateProvider } from "../../../../shared/ports/IDateProvider";
-import { CreateUserUseCase } from "./index";
+import {IAdminRepository} from "../../ports/AdminRepository";
+import {mock} from "jest-mock-extended";
+import {IEncryptionProvider} from "../../../../shared/ports/IEncryptionProvider";
+import {IDateProvider} from "../../../../shared/ports/IDateProvider";
+import {CreateUserUseCase} from "./index";
 import {CreateUserDto} from "../../dto/CreateUserDto";
 import {ISession} from "../../../../../domain/session/ISession";
 
@@ -14,13 +14,43 @@ const dateProviderMock = mock<IDateProvider>();
 const encryptionProviderMock = mock<IEncryptionProvider>();
 const createUserUseCase = new CreateUserUseCase(adminRepositoryMock, dateProviderMock, encryptionProviderMock);
 
-const userCreateNonAdmin: CreateUserDto = { firstName: "Pedro", lastName: "Miotti", email: "pedromiotti@hotmail.com", isAdmin: false, isStaff: true}
-const userCreateAdmin: CreateUserDto = { firstName: "Pedro", lastName: "Miotti", email: "pedromiotti@hotmail.com", isAdmin: true, isStaff: true}
+const userCreateNonAdmin: CreateUserDto = {
+    firstName: "Pedro",
+    lastName: "Miotti",
+    email: "pedromiotti@hotmail.com",
+    isAdmin: false,
+    isStaff: true
+}
+const userCreateAdmin: CreateUserDto = {
+    firstName: "Pedro",
+    lastName: "Miotti",
+    email: "pedromiotti@hotmail.com",
+    isAdmin: true,
+    isStaff: true
+}
 const dateNow: string = "2021-07-26T11:25:13.747-03:00";
 const salt: string = "$2a$10$vQ4px79jV9R.wJvBxsA.LO";
 const hashedPasswd: string = "$2a$10$g04MiYGnWqNh6O08Wp7iSuTtonAkPjrJSHeZY9DoN6BJYR7q2b4x2";
-const adminSession: ISession = {id: 1, email: "pedromiotti@hotmail.com", name: "Pedro Miotti", emailVerified: true, isAdmin: true, isStaff: true, exp: 12, iat: 1};
-const nonAdminSession: ISession = {id: 1, email: "pedromiotti@hotmail.com", name: "Pedro Miotti", emailVerified: true, isAdmin: false, isStaff: true, exp: 12, iat: 1};
+const adminSession: ISession = {
+    id: 1,
+    email: "pedromiotti@hotmail.com",
+    name: "Pedro Miotti",
+    emailVerified: true,
+    isAdmin: true,
+    isStaff: true,
+    exp: 12,
+    iat: 1
+};
+const nonAdminSession: ISession = {
+    id: 1,
+    email: "pedromiotti@hotmail.com",
+    name: "Pedro Miotti",
+    emailVerified: true,
+    isAdmin: false,
+    isStaff: true,
+    exp: 12,
+    iat: 1
+};
 
 describe("Positive user-admin tests", () => {
     beforeAll(() => {
@@ -35,7 +65,7 @@ describe("Positive user-admin tests", () => {
     });
 
     it("Should return a success if the non-admin user was created", async () => {
-        const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com",true, false );
+        const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com", true, false);
 
         adminRepositoryMock.createUser.mockResolvedValueOnce(user);
         adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
@@ -52,7 +82,7 @@ describe("Positive user-admin tests", () => {
     })
 
     it("Should return a success if the admin user was created", async () => {
-        const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com",true, true );
+        const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com", true, true);
 
         adminRepositoryMock.createUser.mockResolvedValueOnce(user);
         adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
@@ -83,7 +113,7 @@ describe("Negative user-admin tests", () => {
     });
 
     it("Should return a 400 error if the user e-mail was found", async () => {
-        const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com",true, false );
+        const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com", true, false);
         adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(user);
 
         const result = await createUserUseCase.execute(userCreateNonAdmin, adminSession);
@@ -109,7 +139,13 @@ describe("Negative user-admin tests", () => {
     })
 
     it("Should return a 400 error if the e-mail is missing ", async () => {
-        const userMissingEmail: CreateUserDto = { firstName: "Pedro", lastName: "Miotti", email: null, isAdmin: false, isStaff: true}
+        const userMissingEmail: CreateUserDto = {
+            firstName: "Pedro",
+            lastName: "Miotti",
+            email: null,
+            isAdmin: false,
+            isStaff: true
+        }
 
         const result = await createUserUseCase.execute(userMissingEmail, adminSession);
 
@@ -123,7 +159,13 @@ describe("Negative user-admin tests", () => {
     })
 
     it("Should return a 400 error if the first and last name are missing ", async () => {
-        const userMissingEmail: CreateUserDto = { firstName: null, lastName: null, email: "pedromiotti@hotmail.com", isAdmin: false, isStaff: true}
+        const userMissingEmail: CreateUserDto = {
+            firstName: null,
+            lastName: null,
+            email: "pedromiotti@hotmail.com",
+            isAdmin: false,
+            isStaff: true
+        }
 
         const result = await createUserUseCase.execute(userMissingEmail, adminSession);
 
@@ -136,7 +178,7 @@ describe("Negative user-admin tests", () => {
         );
     })
 
-    it("Should return a 400 error if the user is not a admin and wants to create a admin user", async () => {
+    it("Should return a 401 error if the user is not a admin and wants to create a admin user", async () => {
         const result = await createUserUseCase.execute(userCreateAdmin, nonAdminSession);
 
         expect(result.success).toBeFalsy();
