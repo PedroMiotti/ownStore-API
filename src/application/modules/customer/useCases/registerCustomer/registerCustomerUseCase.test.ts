@@ -5,11 +5,19 @@ import { Customer } from "../../../../../domain/customer/Customer";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
 import resources, { resourceKeys } from "../../../../shared/locals";
 import { IEmailProvider } from "../../../email/ports/IEmailProvider";
+import {IDateProvider} from "../../../../shared/ports/IDateProvider";
+import {IEncryptionProvider} from "../../../../shared/ports/IEncryptionProvider";
 
 
 const customerRepositoryMock = mock<ICustomerRepository>();
 const emailProviderMock = mock<IEmailProvider>();
-const registerCustomerUseCase = new RegisterCustomerUseCase(customerRepositoryMock, emailProviderMock);
+const dateProviderMock = mock<IDateProvider>();
+const encryptionProviderMock = mock<IEncryptionProvider>();
+
+const registerCustomerUseCase = new RegisterCustomerUseCase(customerRepositoryMock, emailProviderMock, dateProviderMock, encryptionProviderMock);
+const dateNow: string = "2021-07-26T11:25:13.747-03:00";
+const salt: string = "$2a$10$vQ4px79jV9R.wJvBxsA.LO";
+const hashedPasswd: string = "$2a$10$g04MiYGnWqNh6O08Wp7iSuTtonAkPjrJSHeZY9DoN6BJYR7q2b4x2";
 
 describe("Positive customer tests", () => {
     beforeAll(() => {
@@ -19,12 +27,18 @@ describe("Positive customer tests", () => {
     beforeEach(() => {
         customerRepositoryMock.getCustomerByEmail.mockReset();
         customerRepositoryMock.registerCustomer.mockReset();
+        encryptionProviderMock.getSalt.mockReset();
+        encryptionProviderMock.hashPassword.mockReset();
     });
 
     it("Should return a success if the customer was registered", async () => {
         const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com", false, false, "pedro123");
         customerRepositoryMock.getCustomerByEmail.mockResolvedValueOnce(null);
         customerRepositoryMock.registerCustomer.mockResolvedValueOnce(customer);
+
+        dateProviderMock.getDateNow.mockReturnValue(dateNow);
+        encryptionProviderMock.getSalt.mockReturnValue(salt);
+        encryptionProviderMock.hashPassword.mockReturnValue(hashedPasswd);
 
         const result = await registerCustomerUseCase.execute(customer);
 

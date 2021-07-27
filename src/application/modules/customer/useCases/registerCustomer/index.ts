@@ -1,19 +1,23 @@
 import { ICustomerRepository } from "../../ports/ICustomerRepository";
 import { BaseUseCase, IResultT, ResultT, Result } from "../../../../shared/useCase/BaseUseCase";
 import { RegisterCustomerDto } from "../../dto/RegisterCustomerDto";
-import { genSaltSync, hashSync } from 'bcryptjs';
-import { DateTime } from 'luxon';
 import { IEmailProvider } from "../../../email/ports/IEmailProvider";
 import AppSettings from "../../../../shared/settings/AppSettings";
+import {IDateProvider} from "@/application/shared/ports/IDateProvider";
+import {IEncryptionProvider} from "@/application/shared/ports/IEncryptionProvider";
 
 export class RegisterCustomerUseCase extends BaseUseCase{
     private readonly customerRepository: ICustomerRepository;
     private readonly emailProvider: IEmailProvider;
+    private readonly dateProvider: IDateProvider;
+    private readonly encryptionProvider: IEncryptionProvider;
 
-    public constructor(customerRepository: ICustomerRepository, emailProvider: IEmailProvider) {
+    public constructor(customerRepository: ICustomerRepository, emailProvider: IEmailProvider, dateProvider: IDateProvider, encryptionProvider: IEncryptionProvider) {
         super();
         this.customerRepository = customerRepository;
         this.emailProvider = emailProvider;
+        this.dateProvider = dateProvider;
+        this.encryptionProvider = encryptionProvider;
     }
 
     async execute(customer: RegisterCustomerDto): Promise<IResultT<RegisterCustomerDto>> {
@@ -34,10 +38,10 @@ export class RegisterCustomerUseCase extends BaseUseCase{
             return result;
         }
 
-        const salt = genSaltSync(parseInt(AppSettings.EncryptionSaltRounds));
-        const passwordHash = hashSync(customer.password, salt);
+        const salt = this.encryptionProvider.getSalt(parseInt(AppSettings.EncryptionSaltRounds));
+        const passwordHash = this.encryptionProvider.hashPassword(customer.password, salt);
         customer.password = passwordHash;
-        customer.createdAt = DateTime.local().toISO();
+        customer.createdAt = this.dateProvider.getDateNow();
 
         const wasRegistered = await this.customerRepository.registerCustomer(customer);
         if(!wasRegistered){
