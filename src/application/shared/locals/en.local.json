@@ -13,7 +13,7 @@
   "USER_LOGGED_IN_SUCCESSFULLY": "User logged in successfully !",
   "USER_CREATED_SUCCESSFULLY": "User was created successfully !",
   "CREATE_ADMIN_USER_NOT_AUTHORIZED": "Only a admin user can create another admin user !",
-
+  "USERS_RETRIEVED_SUCCESSFULLY": "Users retrieved successfully !",
 
   "CUSTOMER_FOUND_SUCCESSFULLY": "User found successfully !",
   "CUSTOMER_CREATED_SUCCESSFULLY": "Customer was created successfully !",

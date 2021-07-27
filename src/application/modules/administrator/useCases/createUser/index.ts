@@ -1,9 +1,9 @@
 import { BaseUseCase, IResultT, ResultT, Result } from "../../../../shared/useCase/BaseUseCase";
-import { CreateUserDto } from "@/application/modules/administrator/dto/CreateUserDto";
+import { CreateUserDto } from "../../../../modules/administrator/dto/CreateUserDto";
 import AppSettings from "../../../../shared/settings/AppSettings";
-import { IAdminRepository } from "@/application/modules/administrator/ports/AdminRepository";
-import { IDateProvider } from "@/application/shared/ports/IDateProvider";
-import { IEncryptionProvider } from "@/application/shared/ports/IEncryptionProvider";
+import { IAdminRepository } from "../../../../modules/administrator/ports/AdminRepository";
+import { IDateProvider } from "../../../../shared/ports/IDateProvider";
+import { IEncryptionProvider } from "../../../../shared/ports/IEncryptionProvider";
 import { User } from "@/domain/user/User";
 import { ISession } from "@/domain/session/ISession";
 
