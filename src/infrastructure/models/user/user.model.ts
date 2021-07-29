@@ -9,7 +9,7 @@ class UserModel {
         let domainUser;
 
         await Sql.conectar(async (sql: Sql) => {
-            const founded = await sql.query("select * from userd where password = ?", [user.email]);
+            const founded = await sql.query("select * from user where email = ?", [user.email]);
             if(founded.length === 0 || !founded)
                 return null;
 
@@ -21,3 +21,4 @@ class UserModel {
 }
 
 export default new UserModel();
+

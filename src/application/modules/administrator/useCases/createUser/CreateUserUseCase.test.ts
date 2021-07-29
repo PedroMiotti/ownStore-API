@@ -1,18 +1,14 @@
-import resources, {resourceKeys} from "../../../../shared/locals";
-import {User} from "../../../../../domain/user/User";
+import resources, { resourceKeys } from "../../../../shared/locals";
+import { User } from "../../../../../domain/user/User";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
-import {IAdminRepository} from "../../ports/AdminRepository";
-import {mock} from "jest-mock-extended";
-import {IEncryptionProvider} from "../../../../shared/ports/IEncryptionProvider";
-import {IDateProvider} from "../../../../shared/ports/IDateProvider";
-import {CreateUserUseCase} from "./index";
-import {CreateUserDto} from "../../dto/CreateUserDto";
-import {ISession} from "../../../../../domain/session/ISession";
+import { IAdminRepository } from "../../ports/AdminRepository";
+import { mock } from "jest-mock-extended";
+import { CreateUserUseCase } from "./index";
+import { CreateUserDto } from "../../dto/CreateUserDto";
+import { ISession } from "../../../../../domain/session/ISession";
 
 const adminRepositoryMock = mock<IAdminRepository>();
-const dateProviderMock = mock<IDateProvider>();
-const encryptionProviderMock = mock<IEncryptionProvider>();
-const createUserUseCase = new CreateUserUseCase(adminRepositoryMock, dateProviderMock, encryptionProviderMock);
+const createUserUseCase = new CreateUserUseCase(adminRepositoryMock);
 
 const userCreateNonAdmin: CreateUserDto = {
     firstName: "Pedro",
@@ -59,9 +55,6 @@ describe("Positive user-admin tests", () => {
 
     beforeEach(() => {
         adminRepositoryMock.createUser.mockReset();
-        dateProviderMock.getDateNow.mockReset();
-        encryptionProviderMock.getSalt.mockReset();
-        encryptionProviderMock.hashPassword.mockReset();
     });
 
     it("Should return a success if the non-admin user was created", async () => {
@@ -69,10 +62,6 @@ describe("Positive user-admin tests", () => {
 
         adminRepositoryMock.createUser.mockResolvedValueOnce(user);
         adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
-
-        dateProviderMock.getDateNow.mockReturnValue(dateNow);
-        encryptionProviderMock.getSalt.mockReturnValue(salt);
-        encryptionProviderMock.hashPassword.mockReturnValue(hashedPasswd);
 
         const result = await createUserUseCase.execute(userCreateNonAdmin, nonAdminSession);
 
@@ -86,10 +75,6 @@ describe("Positive user-admin tests", () => {
 
         adminRepositoryMock.createUser.mockResolvedValueOnce(user);
         adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
-
-        dateProviderMock.getDateNow.mockReturnValue(dateNow);
-        encryptionProviderMock.getSalt.mockReturnValue(salt);
-        encryptionProviderMock.hashPassword.mockReturnValue(hashedPasswd);
 
         const result = await createUserUseCase.execute(userCreateAdmin, adminSession);
 
@@ -107,9 +92,7 @@ describe("Negative user-admin tests", () => {
 
     beforeEach(() => {
         adminRepositoryMock.createUser.mockReset();
-        dateProviderMock.getDateNow.mockReset();
-        encryptionProviderMock.getSalt.mockReset();
-        encryptionProviderMock.hashPassword.mockReset();
+
     });
 
     it("Should return a 400 error if the user e-mail was found", async () => {

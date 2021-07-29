@@ -3,21 +3,17 @@ import { BaseUseCase, IResultT, ResultT, Result } from "../../../../shared/useCa
 import { RegisterCustomerDto } from "../../dto/RegisterCustomerDto";
 import { IEmailProvider } from "../../../email/ports/IEmailProvider";
 import AppSettings from "../../../../shared/settings/AppSettings";
-import {IDateProvider} from "@/application/shared/ports/IDateProvider";
-import {IEncryptionProvider} from "@/application/shared/ports/IEncryptionProvider";
+import encryptionUtils from "../../../../shared/utils/EncryptionUtils";
+import dateTimeUtils from '../../../../shared/utils/DateTimeUtils';
 
 export class RegisterCustomerUseCase extends BaseUseCase{
     private readonly customerRepository: ICustomerRepository;
     private readonly emailProvider: IEmailProvider;
-    private readonly dateProvider: IDateProvider;
-    private readonly encryptionProvider: IEncryptionProvider;
 
-    public constructor(customerRepository: ICustomerRepository, emailProvider: IEmailProvider, dateProvider: IDateProvider, encryptionProvider: IEncryptionProvider) {
+    public constructor(customerRepository: ICustomerRepository, emailProvider: IEmailProvider) {
         super();
         this.customerRepository = customerRepository;
         this.emailProvider = emailProvider;
-        this.dateProvider = dateProvider;
-        this.encryptionProvider = encryptionProvider;
     }
 
     async execute(customer: RegisterCustomerDto): Promise<IResultT<RegisterCustomerDto>> {
@@ -38,10 +34,10 @@ export class RegisterCustomerUseCase extends BaseUseCase{
             return result;
         }
 
-        const salt = this.encryptionProvider.getSalt(parseInt(AppSettings.EncryptionSaltRounds));
-        const passwordHash = this.encryptionProvider.hashPassword(customer.password, salt);
+        const salt = encryptionUtils.getSalt(parseInt(AppSettings.EncryptionSaltRounds));
+        const passwordHash = encryptionUtils.hashPassword(customer.password, salt);
         customer.password = passwordHash;
-        customer.createdAt = this.dateProvider.getDateNow();
+        customer.createdAt = dateTimeUtils.getISONow();
 
         const wasRegistered = await this.customerRepository.registerCustomer(customer);
         if(!wasRegistered){

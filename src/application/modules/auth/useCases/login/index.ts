@@ -29,6 +29,8 @@ export class LoginUseCase extends BaseUseCase {
             this.handleResultError(result);
         });
 
+        // TODO -> Check the user password hash
+
         if (!authenticatedUser) {
             result.setError(
                 this.resources.get(this.resourceKeys.INVALID_EMAIL_OR_PASSWORD),

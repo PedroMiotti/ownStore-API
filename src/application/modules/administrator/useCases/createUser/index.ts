@@ -2,21 +2,18 @@ import { BaseUseCase, IResultT, ResultT, Result } from "../../../../shared/useCa
 import { CreateUserDto } from "../../../../modules/administrator/dto/CreateUserDto";
 import AppSettings from "../../../../shared/settings/AppSettings";
 import { IAdminRepository } from "../../../../modules/administrator/ports/AdminRepository";
-import { IDateProvider } from "../../../../shared/ports/IDateProvider";
-import { IEncryptionProvider } from "../../../../shared/ports/IEncryptionProvider";
+import encryptionUtils from "../../../../shared/utils/EncryptionUtils";
+import dateTimeUtils from '../../../../shared/utils/DateTimeUtils';
 import { User } from "@/domain/user/User";
 import { ISession } from "@/domain/session/ISession";
 
 export class CreateUserUseCase extends BaseUseCase {
     private readonly adminRepository: IAdminRepository;
-    private readonly dateProvider: IDateProvider;
-    private readonly encryptionProvider: IEncryptionProvider;
 
-    public constructor(adminRepository: IAdminRepository, dateProvider: IDateProvider, encryptionProvider: IEncryptionProvider) {
+
+    public constructor(adminRepository: IAdminRepository) {
         super();
         this.adminRepository = adminRepository;
-        this.dateProvider = dateProvider;
-        this.encryptionProvider = encryptionProvider;
     }
 
     async execute(user: CreateUserDto, session: ISession): Promise<IResultT<User>> {
@@ -45,12 +42,12 @@ export class CreateUserUseCase extends BaseUseCase {
             return result;
         }
 
-        const salt = this.encryptionProvider.getSalt(parseInt(AppSettings.EncryptionSaltRounds));
+        const salt = encryptionUtils.getSalt(parseInt(AppSettings.EncryptionSaltRounds));
         const defaultPasswd = user.firstName + AppSettings.DefaultUserPasswd;
-        const passwdHash = this.encryptionProvider.hashPassword(defaultPasswd, salt)
+        const passwdHash = encryptionUtils.hashPassword(defaultPasswd, salt)
 
         user.password = passwdHash;
-        user.createdAt = this.dateProvider.getDateNow();
+        user.createdAt = dateTimeUtils.getISONow();
 
         const wasRegistered: User = await this.adminRepository.createUser(user);
         if (!wasRegistered) {
