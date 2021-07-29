@@ -7,6 +7,7 @@ import AuthorizationMiddleware from '../middleware/authorization/jwt';
 import config from "../config";
 import * as helmet from "helmet";
 import SqlPool from "@/infrastructure/database/mysql/mysql-connection";
+import logger from "@/application/shared/logger";
 
 export default class App {
     public app: Application;
@@ -43,9 +44,7 @@ export default class App {
 
     public listen(): void {
         this.app.listen(config.server.Port, () => {
-            console.log(
-                `Server running on ${AppSettings.ServerHost}:${AppSettings.ServerPort}${AppSettings.ServerRoot}`,
-            );
+            logger.info(`Server running on ${AppSettings.ServerHost}:${AppSettings.ServerPort}${AppSettings.ServerRoot}`)
         });
     }
 

@@ -4,19 +4,19 @@ import { Request, Response, NextFunction } from "../../server/core/Modules";
 import resources from "@/application/shared/locals";
 import { Result } from "result-tsk";
 import config from "../../config";
+import logger from "@/application/shared/logger";
 
 export class HandlerErrorMiddleware {
   handler(err: ApplicationError, req: Request, res: Response, next: NextFunction): void {
     const result = new Result();
 
     if (err?.name === "ApplicationError") {
-      console.log("Controlled application error:", err.message);
+      logger.error("Controlled application error:", err)
       result.setError(err.message, err.errorCode);
     } 
 
     else {
-      // Send to your log this error
-      console.log("No controlled application error:", err);
+      logger.error("No controlled application error:", err)
       result.setError(
         resources.get(config.params.defaultApplicationError.Message),
         config.params.defaultApplicationError.Code,

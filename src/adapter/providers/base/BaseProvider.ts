@@ -20,4 +20,5 @@ export class BaseProvider {
   resources: Resources;
   resourceKeys = resourceKeys;
   applicationStatusCode = applicationStatus;
+
 }

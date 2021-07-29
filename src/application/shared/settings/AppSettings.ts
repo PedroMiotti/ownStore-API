@@ -16,7 +16,7 @@ export default class AppSettings {
     static MySQLConnectionLimit: string;
 
     static DefaultUserPasswd: string;
-
+s
     static init(config: { [key: string]: any }): void {
         this.DefaultLang = config.params.DefaultLang;
         this.ServerRoot = config.server.Root;

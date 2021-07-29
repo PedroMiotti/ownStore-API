@@ -28,7 +28,8 @@
     "mysql": "^2.18.1",
     "resources-tsk": "^2.0.0",
     "result-tsk": "^2.0.0",
-    "validator-tsk": "^2.0.0"
+    "validator-tsk": "^2.0.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",

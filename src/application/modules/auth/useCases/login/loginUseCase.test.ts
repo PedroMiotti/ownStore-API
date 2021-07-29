@@ -62,9 +62,7 @@ describe("Negative auth tests", () => {
 
     it("Should return a 400 if the email or password is invalid", async () => {
         const userLogin: UserLoginDto = { email: "pedromiotti@hotmail.com", password: "1234" };
-        authProviderMock.login.mockResolvedValueOnce(new Promise((resolve, reject) => {
-            reject();
-        }));
+        authProviderMock.login.mockResolvedValueOnce(null);
 
         const result = await loginUseCase.execute(userLogin);
 
