@@ -25,7 +25,7 @@ export class CreateUserUseCase extends BaseUseCase {
 
         if(user.isAdmin && !session.isAdmin){
             result.setError(
-                this.resources.get(this.resourceKeys.CREATE_ADMIN_USER_NOT_AUTHORIZED),
+                this.resources.get(this.resourceKeys.OPERATION_NOT_AUTHORIZED_ADMIN_ONLY),
                 this.applicationStatusCode.UNAUTHORIZED
             );
             return result;

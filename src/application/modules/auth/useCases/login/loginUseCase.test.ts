@@ -12,6 +12,7 @@ const authProviderMock = mock<IAuthProvider>();
 const loginUseCase = new LoginUseCase(authProviderMock);
 
 const mockToken = "hui3h2r8793y28rh4ui3hq8r94y3q89ry34hwqiohiY*Y@#*Y$*yut8hr4eigf"
+const hashedPasswd = "$2a$10$s8cJXa4NK9cmwyfSQCtw0ehi0vZY3XhpuatAmbK.bGJqyZzdJ38z2";
 
 describe("Positive auth tests", () => {
     beforeAll(() => {
@@ -23,8 +24,8 @@ describe("Positive auth tests", () => {
     });
 
     it("Should return a success if the user was logged in", async () => {
-        const userLogin: UserLoginDto = { email: "pedromiotti@hotmail.com", password: "1234" };
-        const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com",false, false, "1234");
+        const userLogin: UserLoginDto = { email: "pedromiotti@hotmail.com", password: ("Pedro" + AppSettings.DefaultUserPasswd) };
+        const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com",false, false, hashedPasswd);
         authProviderMock.login.mockResolvedValueOnce(user);
         authProviderMock.getJwt.mockResolvedValueOnce(mockToken);
 

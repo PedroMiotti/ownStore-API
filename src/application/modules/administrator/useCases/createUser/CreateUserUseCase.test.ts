@@ -26,7 +26,6 @@ const userCreateAdmin: CreateUserDto = {
 }
 const dateNow: string = "2021-07-26T11:25:13.747-03:00";
 const salt: string = "$2a$10$vQ4px79jV9R.wJvBxsA.LO";
-const hashedPasswd: string = "$2a$10$g04MiYGnWqNh6O08Wp7iSuTtonAkPjrJSHeZY9DoN6BJYR7q2b4x2";
 const adminSession: ISession = {
     id: 1,
     email: "pedromiotti@hotmail.com",
@@ -55,6 +54,7 @@ describe("Positive user-admin tests", () => {
 
     beforeEach(() => {
         adminRepositoryMock.createUser.mockReset();
+        adminRepositoryMock.getUserByEmail.mockReset();
     });
 
     it("Should return a success if the non-admin user was created", async () => {
@@ -166,6 +166,6 @@ describe("Negative user-admin tests", () => {
 
         expect(result.success).toBeFalsy();
         expect(result.statusCode).toBe(applicationStatus.UNAUTHORIZED);
-        expect(result.error).toBe(resources.get(resourceKeys.CREATE_ADMIN_USER_NOT_AUTHORIZED));
+        expect(result.error).toBe(resources.get(resourceKeys.OPERATION_NOT_AUTHORIZED_ADMIN_ONLY));
     })
 })

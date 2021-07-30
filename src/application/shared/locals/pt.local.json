@@ -11,10 +11,12 @@
   "INVALID_EMAIL_OR_PASSWORD": "E-mail ou senha incorretos, tente novamente !",
   "ERROR_CREATING_USER": "Erro ao criar o usuário !",
   "ERROR_DELETING_USER": "Erro ao deletar o usuário !",
+  "ERROR_UPDATING_USER": "Erro ao atualizar o usuário !",
   "USER_DOESNT_EXISTS": "Esse usuário não existe",
   "USER_CREATED_SUCCESSFULLY": "Usuário criado com sucesso !",
   "USER_DELETED_SUCCESSFULLY": "Usuário deletado com sucesso !",
-  "CREATE_ADMIN_USER_NOT_AUTHORIZED": "Apenas um usuário administrador pode criar outro usuário administrador !",
+  "USER_UPDATED_SUCCESSFULLY": "User was updated successfully !",
+  "OPERATION_NOT_AUTHORIZED_ADMIN_ONLY": "Essa operação só pode ser feita por um usuário administrador !",
   "USERS_RETRIEVED_SUCCESSFULLY": "Usuários retornados com sucesso !",
   "DELETE_USER_NOT_AUTHORIZED": "Apenas um usuário administrador pode deletar outro usuário !",
 
