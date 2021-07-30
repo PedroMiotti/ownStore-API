@@ -4,6 +4,7 @@ import {TokenDto} from "../../dto/TokenDto";
 import {User} from "@/domain/user/User";
 import {IAuthProvider} from "../../ports/IAuthProvider";
 import {CreateSessionTokenUseCase} from "../createSessionToken";
+import encryptionUtils from '../../../../shared/utils/EncryptionUtils';
 
 export class LoginUseCase extends BaseUseCase {
     private readonly authProvider: IAuthProvider;
@@ -29,15 +30,19 @@ export class LoginUseCase extends BaseUseCase {
             this.handleResultError(result);
         });
 
-        // TODO -> Check the user password hash
+        let doesPasswdMatch;
+        if (authenticatedUser instanceof User) {
+            doesPasswdMatch = encryptionUtils.comparePassword(user.password, authenticatedUser?.password);
+        }
 
-        if (!authenticatedUser) {
+        if (!authenticatedUser || !doesPasswdMatch) {
             result.setError(
                 this.resources.get(this.resourceKeys.INVALID_EMAIL_OR_PASSWORD),
                 this.applicationStatusCode.BAD_REQUEST,
             );
             return result;
         }
+
 
         const session = new CreateSessionTokenUseCase(this.authProvider);
         const token: TokenDto = await session.execute(authenticatedUser);
