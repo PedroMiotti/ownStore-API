@@ -1,22 +1,22 @@
-import {UserLoginDto} from "@/application/modules/auth/dto/UserLoginDto";
-import {User} from "@/domain/user/User";
-import Sql from "@/infrastructure/database/mysql/sql";
+import { UserLoginDto } from "@/application/modules/auth/dto/UserLoginDto";
+import { User } from "@/domain/user/User";
 import mapper from "mapper-tsk";
+import { getRepository } from "typeorm";
+import { User as UserEntity } from '../../entity/User';
+import { UserDto } from "@/infrastructure/models/user/dto/UserDto";
 
 
 class UserModel {
     async login(user: UserLoginDto): Promise<User> {
-        let domainUser;
 
-        await Sql.conectar(async (sql: Sql) => {
-            const founded = await sql.query("select * from user where email = ?", [user.email]);
-            if(founded.length === 0 || !founded)
-                return null;
+        const userRepository = getRepository(UserEntity);
+        const u: UserDto | undefined = await userRepository.findOne({ email: user.email });
 
-            domainUser = mapper.mapObject(founded, new User());
-        })
+        if(!u)
+            return null;
 
-        return domainUser;
+        return mapper.mapObject(u, new User());
+
     }
 }
 

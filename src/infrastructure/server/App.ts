@@ -6,8 +6,9 @@ import HandlerErrorMiddleware from "../middleware/handleError";
 import AuthorizationMiddleware from '../middleware/authorization/jwt';
 import config from "../config";
 import * as helmet from "helmet";
-import SqlPool from "@/infrastructure/database/mysql/mysql-connection";
+import "reflect-metadata"; // TypeOrm specification
 import logger from "@/application/shared/logger";
+import MySqlConnection from "@/infrastructure/database/typeorm/DatabaseConnection";
 
 export default class App {
     public app: Application;
@@ -49,7 +50,7 @@ export default class App {
     }
 
     private runServices(): void {
-        SqlPool.init();
+        MySqlConnection.init();
         this.listen();
     }
 

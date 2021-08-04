@@ -26,8 +26,10 @@
     "luxon": "^2.0.1",
     "mapper-tsk": "^2.0.0",
     "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13",
     "resources-tsk": "^2.0.0",
     "result-tsk": "^2.0.0",
+    "typeorm": "^0.2.36",
     "validator-tsk": "^2.0.0",
     "winston": "^3.3.3"
   },

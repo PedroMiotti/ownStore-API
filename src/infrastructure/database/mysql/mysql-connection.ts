@@ -1,6 +1,5 @@
 // MySQL
 import mysql = require("mysql");
-
 import AppSettings from "@/application/shared/settings/AppSettings";
 import { Pool } from "mysql";
 
