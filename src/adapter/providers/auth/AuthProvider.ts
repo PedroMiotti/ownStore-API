@@ -12,7 +12,7 @@ export class AuthProvider extends BaseProvider implements IAuthProvider {
     login(user: UserLoginDto): Promise<User> {
 
         return UserModel.login(user)
-            .then((user) => {
+            .then((user: User) => {
                 return user;
             }).catch((e) => {
                 logger.error("Error when user tries to login: ", e);
