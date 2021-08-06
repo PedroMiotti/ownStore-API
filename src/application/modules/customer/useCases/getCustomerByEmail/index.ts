@@ -11,7 +11,6 @@ export class GetCustomerByEmailUseCase extends BaseUseCase{
         this.customerRepository = customerRepository;
     }
 
-
     async execute(email: string): Promise<IResultT<Customer>>{
         const result = new ResultT<Customer>();
 

@@ -2,7 +2,7 @@ import resources, {resourceKeys} from "../../../../shared/locals";
 import { User } from "../../../../../domain/user/User";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
 import { mock } from "jest-mock-extended";
-import {IAdminRepository} from "../../ports/AdminRepository";
+import {IAdminRepository} from "../../../administrator/ports/AdminRepository";
 import {ListAllUsersUseCase} from "./index";
 
 const adminRepositoryMock = mock<IAdminRepository>();

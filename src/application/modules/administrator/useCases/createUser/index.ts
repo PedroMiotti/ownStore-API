@@ -10,7 +10,6 @@ import { ISession } from "@/domain/session/ISession";
 export class CreateUserUseCase extends BaseUseCase {
     private readonly adminRepository: IAdminRepository;
 
-
     public constructor(adminRepository: IAdminRepository) {
         super();
         this.adminRepository = adminRepository;
