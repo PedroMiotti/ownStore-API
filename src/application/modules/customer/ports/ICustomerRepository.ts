@@ -5,7 +5,7 @@ import { CustomerProfileDto } from "../dto/CustomerProfileDto";
 
 export interface ICustomerRepository{
     registerCustomer(customer: RegisterCustomerDto): Promise<Customer>;
-    getCustomerByEmail(email: string): Promise<Customer>;
+    getCustomerByEmail(email: string): Promise<Customer>; // TODO -> Remove this
     getCustomerById(id: number): Promise<Customer>;
     updateCustomer(customer: CustomerProfileDto): Promise<Customer>;
     deleteCustomer(id: number): Promise<string>;
