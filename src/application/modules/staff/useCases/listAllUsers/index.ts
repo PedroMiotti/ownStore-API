@@ -1,20 +1,20 @@
-import { BaseUseCase, IResultT, ResultT } from "../../../../..../../shared/useCase/BaseUseCase";
-import { IAdminRepository } from "../../../../..../../modules/administrator/ports/AdminRepository";
+import { BaseUseCase, IResultT, ResultT } from "../../../../shared/useCase/BaseUseCase";
+import { IAdminRepository } from "../../../administrator/ports/IAdminRepository";
 import { User } from "@/domain/user/User";
 
 
-export class ListAllUsersUseCase extends BaseUseCase{
-    private readonly adminRepository: IAdminRepository;
+export class ListAllStaffUseCase extends BaseUseCase{
+    private readonly userRepository: IAdminRepository;
 
     public constructor(adminRepository: IAdminRepository) {
         super();
-        this.adminRepository = adminRepository;
+        this.userRepository = adminRepository;
     }
 
     async execute(): Promise<IResultT<User[]>>{
         const result = new ResultT<User[]>()
 
-        const users = await this.adminRepository.getAllUsers();
+        const users = await this.userRepository.getAllUsers();
 
         result.setData(users, this.applicationStatusCode.SUCCESS);
 

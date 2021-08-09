@@ -1,7 +1,7 @@
 import { BaseUseCase, IResultT, ResultT, Result } from "../../../../shared/useCase/BaseUseCase";
 import { CreateUserDto } from "../../../../modules/administrator/dto/CreateUserDto";
 import AppSettings from "../../../../shared/settings/AppSettings";
-import { IAdminRepository } from "../../../../modules/administrator/ports/AdminRepository";
+import { IAdminRepository } from "../../ports/IAdminRepository";
 import encryptionUtils from "../../../../shared/utils/EncryptionUtils";
 import dateTimeUtils from '../../../../shared/utils/DateTimeUtils';
 import { User } from "@/domain/user/User";

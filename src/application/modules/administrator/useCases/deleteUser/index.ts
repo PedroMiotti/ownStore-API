@@ -1,5 +1,5 @@
 import { BaseUseCase, IResult, Result } from "../../../..//shared/useCase/BaseUseCase";
-import { IAdminRepository } from "../../../../modules/administrator/ports/AdminRepository";
+import { IAdminRepository } from "../../ports/IAdminRepository";
 import { ISession } from "@/domain/session/ISession";
 
 
