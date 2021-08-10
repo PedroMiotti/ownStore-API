@@ -2,14 +2,16 @@ import resources, { resourceKeys } from "../../../../shared/locals";
 import { User } from "../../../../../domain/user/User";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
 import { mock } from "jest-mock-extended";
-import { IAdminRepository } from "../../ports/AdminRepository";
+import { IAdminRepository } from "../../ports/IAdminRepository";
 import { UpdateUserDto } from "../../dto/UpdateUserDto";
 import { ISession } from "../../../../../domain/session/ISession";
 import { UpdateUserUseCase } from "./index";
+import {IUserRepository} from "../../../user/ports/IUserRepository";
 
 
 const adminRepositoryMock = mock<IAdminRepository>();
-const updateUserUseCase = new UpdateUserUseCase(adminRepositoryMock);
+const userRepositoryMock = mock<IUserRepository>();
+const updateUserUseCase = new UpdateUserUseCase(adminRepositoryMock, userRepositoryMock);
 
 const userUpdatedNonAdmin: UpdateUserDto = {
     id: "1",
@@ -56,16 +58,16 @@ describe("Positive user-admin tests", () => {
 
     beforeEach(() => {
         adminRepositoryMock.updateUser.mockReset();
-        adminRepositoryMock.getUserByEmail.mockReset();
-        adminRepositoryMock.getUserById.mockReset();
+        userRepositoryMock.getUserByEmail.mockReset();
+        userRepositoryMock.getUserById.mockReset();
     });
 
     it("Should return a success if a non-admin user was updated", async () => {
         const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com", true, false);
 
-        adminRepositoryMock.getUserById.mockResolvedValueOnce(user);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(user);
         adminRepositoryMock.updateUser.mockResolvedValueOnce(user);
-        adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
 
         const result = await updateUserUseCase.execute(userUpdatedNonAdmin, nonAdminSession);
 
@@ -77,9 +79,9 @@ describe("Positive user-admin tests", () => {
     it("Should return a success if a admin user was updated", async () => {
         const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com", true, true);
 
-        adminRepositoryMock.getUserById.mockResolvedValueOnce(user);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(user);
         adminRepositoryMock.updateUser.mockResolvedValueOnce(user);
-        adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
 
         const result = await updateUserUseCase.execute(userUpdateAdmin, adminSession);
 
@@ -91,9 +93,9 @@ describe("Positive user-admin tests", () => {
     it("Should return a success if a non-admin user was updated - email change", async () => {
         const user: User = new User("Pedro", "Miotti", "pedromiotti_2@hotmail.com", true, true);
 
-        adminRepositoryMock.getUserById.mockResolvedValueOnce(user);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(user);
         adminRepositoryMock.updateUser.mockResolvedValueOnce(user);
-        adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
 
         const result = await updateUserUseCase.execute(userUpdateAdmin, adminSession);
 
@@ -105,9 +107,9 @@ describe("Positive user-admin tests", () => {
     it("Should return a success if a non-admin user was updated - role change", async () => {
         const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com", true, false);
 
-        adminRepositoryMock.getUserById.mockResolvedValueOnce(user);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(user);
         adminRepositoryMock.updateUser.mockResolvedValueOnce(user);
-        adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
 
         const result = await updateUserUseCase.execute(userUpdateAdmin, adminSession);
 
@@ -124,8 +126,8 @@ describe("Negative user-admin tests", () => {
 
     beforeEach(() => {
         adminRepositoryMock.updateUser.mockReset();
-        adminRepositoryMock.getUserByEmail.mockReset();
-        adminRepositoryMock.getUserById.mockReset();
+        userRepositoryMock.getUserByEmail.mockReset();
+        userRepositoryMock.getUserById.mockReset();
     });
 
     it("Should return a 401 error if the user is not a admin and wants to update a admin user", async () => {
@@ -137,7 +139,7 @@ describe("Negative user-admin tests", () => {
     })
 
     it("Should return a 400 error if the user does not exists", async () => {
-        adminRepositoryMock.getUserById.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(null);
 
         const result = await updateUserUseCase.execute(userUpdateAdmin, adminSession);
 
@@ -149,8 +151,8 @@ describe("Negative user-admin tests", () => {
     it("Should return a 400 error if the user wants to update the email and the email is already in use", async () => {
         const user: User = new User("Pedro", "Miotti", "pedromiotti_2@hotmail.com", true, false);
 
-        adminRepositoryMock.getUserById.mockResolvedValueOnce(user);
-        adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(user);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(user);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(user);
 
         const result = await updateUserUseCase.execute(userUpdateAdmin, adminSession);
 
@@ -164,8 +166,8 @@ describe("Negative user-admin tests", () => {
     it("Should return a 401 error if wants to update the role of a user to admin but the user is not an admin", async () => {
         const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com", true, false);
 
-        adminRepositoryMock.getUserById.mockResolvedValueOnce(user);
-        adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(user);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
 
         const result = await updateUserUseCase.execute(userUpdateAdmin, nonAdminSession);
 
@@ -177,9 +179,9 @@ describe("Negative user-admin tests", () => {
     it("Should return a 500 error if there was an error while updating the user", async () => {
         const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com", true, true);
 
-        adminRepositoryMock.getUserById.mockResolvedValueOnce(user);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(user);
         adminRepositoryMock.updateUser.mockResolvedValueOnce(null);
-        adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
 
         const result = await updateUserUseCase.execute(userUpdateAdmin, adminSession);
 

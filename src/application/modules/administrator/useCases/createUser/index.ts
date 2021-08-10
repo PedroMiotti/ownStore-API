@@ -6,13 +6,16 @@ import encryptionUtils from "../../../../shared/utils/EncryptionUtils";
 import dateTimeUtils from '../../../../shared/utils/DateTimeUtils';
 import { User } from "@/domain/user/User";
 import { ISession } from "@/domain/session/ISession";
+import {IUserRepository} from "@/application/modules/user/ports/IUserRepository";
 
 export class CreateUserUseCase extends BaseUseCase {
     private readonly adminRepository: IAdminRepository;
+    private readonly userRepository: IUserRepository;
 
-    public constructor(adminRepository: IAdminRepository) {
+    public constructor(adminRepository: IAdminRepository, userRepository: IUserRepository) {
         super();
         this.adminRepository = adminRepository;
+        this.userRepository = userRepository;
     }
 
     async execute(user: CreateUserDto, session: ISession): Promise<IResultT<User>> {
@@ -30,7 +33,7 @@ export class CreateUserUseCase extends BaseUseCase {
             return result;
         }
 
-        const doesUserExists = await this.adminRepository.getUserByEmail(user.email);
+        const doesUserExists = await this.userRepository.getUserByEmail(user.email);
         if (doesUserExists) {
             result.setError(
                 this.resources.getWithParams(this.resourceKeys.EMAIL_ALREADY_IN_USE, {

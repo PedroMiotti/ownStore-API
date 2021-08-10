@@ -1,10 +1,12 @@
 import { BaseUseCase, IResult, Result } from "../../../..//shared/useCase/BaseUseCase";
 import { IAdminRepository } from "../../ports/IAdminRepository";
 import { ISession } from "@/domain/session/ISession";
+import {IUserRepository} from "@/application/modules/user/ports/IUserRepository";
 
 
 export class DeleteUserUseCase extends BaseUseCase {
     private readonly adminRepository: IAdminRepository;
+
 
     public constructor(adminRepository: IAdminRepository) {
         super();

@@ -3,14 +3,17 @@ import { IAdminRepository } from "../../ports/IAdminRepository";
 import { ISession } from "@/domain/session/ISession";
 import { User } from "@/domain/user/User";
 import { UpdateUserDto } from "../../../../modules/administrator/dto/UpdateUserDto";
+import {IUserRepository} from "@/application/modules/user/ports/IUserRepository";
 
 
 export class UpdateUserUseCase extends BaseUseCase{
     private readonly adminRepository: IAdminRepository;
+    private readonly userRepository: IUserRepository;
 
-    constructor(adminRepository: IAdminRepository) {
+    constructor(adminRepository: IAdminRepository, userRepository: IUserRepository) {
         super();
         this.adminRepository = adminRepository;
+        this.userRepository = userRepository;
     }
 
     async execute(user: UpdateUserDto, session: ISession): Promise<IResultT<User>>{
@@ -24,7 +27,7 @@ export class UpdateUserUseCase extends BaseUseCase{
             return result;
         }
 
-        const doesUserExists: User = await this.adminRepository.getUserById(parseInt(user.id));
+        const doesUserExists: User = await this.userRepository.getUserById(parseInt(user.id));
         if(!doesUserExists){
             result.setError(
                 this.resources.get(this.resourceKeys.USER_DOESNT_EXISTS),
@@ -34,7 +37,7 @@ export class UpdateUserUseCase extends BaseUseCase{
         }
 
         if(doesUserExists.email !== user.email){
-            const doesUserExists = await this.adminRepository.getUserByEmail(user.email);
+            const doesUserExists = await this.userRepository.getUserByEmail(user.email);
             if (doesUserExists) {
                 result.setError(
                     this.resources.getWithParams(this.resourceKeys.EMAIL_ALREADY_IN_USE, {

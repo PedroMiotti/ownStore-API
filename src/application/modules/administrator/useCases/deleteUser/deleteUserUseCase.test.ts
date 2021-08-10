@@ -1,5 +1,5 @@
 import { mock } from "jest-mock-extended";
-import { IAdminRepository } from "../../ports/AdminRepository";
+import { IAdminRepository } from "../../ports/IAdminRepository";
 import { DeleteUserUseCase } from "./index";
 import resources, { resourceKeys } from "../../../../shared/locals";
 import applicationStatusCodes from "../../../../shared/status/applicationStatusCodes";

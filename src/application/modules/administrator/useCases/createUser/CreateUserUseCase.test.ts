@@ -1,14 +1,16 @@
 import resources, { resourceKeys } from "../../../../shared/locals";
 import { User } from "../../../../../domain/user/User";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
-import { IAdminRepository } from "../../ports/AdminRepository";
+import { IAdminRepository } from "../../ports/IAdminRepository";
 import { mock } from "jest-mock-extended";
 import { CreateUserUseCase } from "./index";
 import { CreateUserDto } from "../../dto/CreateUserDto";
 import { ISession } from "../../../../../domain/session/ISession";
+import {IUserRepository} from "../../../user/ports/IUserRepository";
 
 const adminRepositoryMock = mock<IAdminRepository>();
-const createUserUseCase = new CreateUserUseCase(adminRepositoryMock);
+const userRepositoryMock = mock<IUserRepository>();
+const createUserUseCase = new CreateUserUseCase(adminRepositoryMock, userRepositoryMock);
 
 const userCreateNonAdmin: CreateUserDto = {
     firstName: "Pedro",
@@ -54,14 +56,14 @@ describe("Positive user-admin tests", () => {
 
     beforeEach(() => {
         adminRepositoryMock.createUser.mockReset();
-        adminRepositoryMock.getUserByEmail.mockReset();
+        userRepositoryMock.getUserByEmail.mockReset();
     });
 
     it("Should return a success if the non-admin user was created", async () => {
         const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com", true, false);
 
         adminRepositoryMock.createUser.mockResolvedValueOnce(user);
-        adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
 
         const result = await createUserUseCase.execute(userCreateNonAdmin, nonAdminSession);
 
@@ -74,7 +76,7 @@ describe("Positive user-admin tests", () => {
         const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com", true, true);
 
         adminRepositoryMock.createUser.mockResolvedValueOnce(user);
-        adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
 
         const result = await createUserUseCase.execute(userCreateAdmin, adminSession);
 
@@ -97,7 +99,7 @@ describe("Negative user-admin tests", () => {
 
     it("Should return a 400 error if the user e-mail was found", async () => {
         const user: User = new User("Pedro", "Miotti", "pedromiotti@hotmail.com", true, false);
-        adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(user);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(user);
 
         const result = await createUserUseCase.execute(userCreateNonAdmin, adminSession);
 
@@ -111,7 +113,7 @@ describe("Negative user-admin tests", () => {
     })
 
     it("Should return a 500 error if there was an error while creating the user", async () => {
-        adminRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
         adminRepositoryMock.createUser.mockResolvedValueOnce(null);
 
         const result = await createUserUseCase.execute(userCreateNonAdmin, adminSession);
