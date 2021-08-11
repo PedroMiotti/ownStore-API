@@ -6,7 +6,7 @@ import encryptionUtils from "../../../../shared/utils/EncryptionUtils";
 import dateTimeUtils from '../../../../shared/utils/DateTimeUtils';
 import { User } from "@/domain/user/User";
 import { ISession } from "@/domain/session/ISession";
-import {IUserRepository} from "@/application/modules/user/ports/IUserRepository";
+import { IUserRepository } from "@/application/modules/user/ports/IUserRepository";
 
 export class CreateUserUseCase extends BaseUseCase {
     private readonly adminRepository: IAdminRepository;

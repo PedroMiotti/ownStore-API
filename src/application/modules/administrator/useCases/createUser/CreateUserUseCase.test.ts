@@ -7,6 +7,7 @@ import { CreateUserUseCase } from "./index";
 import { CreateUserDto } from "../../dto/CreateUserDto";
 import { ISession } from "../../../../../domain/session/ISession";
 import {IUserRepository} from "../../../user/ports/IUserRepository";
+import AppSettings from "../../../../shared/settings/AppSettings";
 
 const adminRepositoryMock = mock<IAdminRepository>();
 const userRepositoryMock = mock<IUserRepository>();
@@ -52,6 +53,9 @@ const nonAdminSession: ISession = {
 describe("Positive user-admin tests", () => {
     beforeAll(() => {
         resources.setDefaultLanguage("pt");
+        AppSettings.DefaultUserPasswd = '#987';
+        AppSettings.EncryptionSaltRounds = '11';
+
     });
 
     beforeEach(() => {

@@ -10,7 +10,6 @@ import logger from "@/application/shared/logger";
 
 export class AuthProvider extends BaseProvider implements IAuthProvider {
     login(user: UserLoginDto): Promise<User> {
-
         return UserModel.login(user)
             .then((user: User) => {
                 return user;

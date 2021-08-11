@@ -43,7 +43,6 @@ export class LoginUseCase extends BaseUseCase {
             return result;
         }
 
-
         const session = new CreateSessionTokenUseCase(this.authProvider);
         const token: TokenDto = await session.execute(authenticatedUser);
 

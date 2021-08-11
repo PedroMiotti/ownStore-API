@@ -2,11 +2,19 @@ import {IAdminRepository} from "@/application/modules/administrator/ports/IAdmin
 import {CreateUserDto} from "@/application/modules/administrator/dto/CreateUserDto";
 import {User} from "@/domain/user/User";
 import {UpdateUserDto} from "@/application/modules/administrator/dto/UpdateUserDto";
+import UserModel from "@/infrastructure/models/user/user.model";
+import logger from "@/application/shared/logger";
 
 
-export class AdministratorRepository implements IAdminRepository{
+export class AdministratorRepository implements IAdminRepository {
     createUser(user: CreateUserDto): Promise<User> {
-        return Promise.resolve(undefined);
+        return UserModel.create(user)
+            .then((user: User) => {
+                return user;
+            }).catch((e) => {
+                logger.error("Error when user tries to login: ", e);
+                return Promise.reject(e);
+            });
     }
 
     deleteUser(id: number): Promise<string> {

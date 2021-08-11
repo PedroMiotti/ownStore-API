@@ -21,6 +21,7 @@ const customer: CustomerProfileDto = {firstName: "Pedro", lastName: "Miotti", ph
 describe("Positive auth tests", () => {
     beforeAll(() => {
         resources.setDefaultLanguage("pt");
+        AppSettings.JWTExpirationTime = 31536000000;
     });
 
     beforeEach(() => {

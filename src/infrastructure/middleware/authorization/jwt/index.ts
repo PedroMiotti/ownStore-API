@@ -29,18 +29,8 @@ class AuthorizationMiddleware {
       );
     }
 
-    const parts = auth.split(/\s+/);
-    if (parts?.length !== TOKEN_PARTS) {
-      throw new ApplicationError(
-        resources.get(resourceKeys.AUTHORIZATION_REQUIRED),
-        applicationStatus.UNAUTHORIZED,
-      );
-    }
-
     try {
-      const token = parts[TOKEN_VALUE_POSITION];
-
-      const session: ISession = await authProvider.verifyJwt(token);
+      const session: ISession = await authProvider.verifyJwt(auth);
       if (!session) {
         throw new ApplicationError(
           resources.get(resourceKeys.AUTHORIZATION_REQUIRED),

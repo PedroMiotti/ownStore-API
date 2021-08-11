@@ -32,6 +32,4 @@ export class User extends BaseEntity{
 
     @Column()
     createAt: string;
-
-
 }
