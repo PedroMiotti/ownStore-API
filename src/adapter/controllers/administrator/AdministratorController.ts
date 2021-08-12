@@ -18,14 +18,11 @@ export class AdministratorController extends BaseController {
                 isStaff: req.body?.isStaff,
                 isAdmin: req.body?.isAdmin
             };
-            console.log(req.session);
 
             this.handleResult(res, await createUserUseCase.execute(user, req.session));
 
         } catch (error) {
-
             next(error);
-
         }
     };
 

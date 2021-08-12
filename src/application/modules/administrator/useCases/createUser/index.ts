@@ -45,7 +45,7 @@ export class CreateUserUseCase extends BaseUseCase {
         }
 
         const salt = encryptionUtils.getSalt(parseInt(AppSettings.EncryptionSaltRounds));
-        const defaultPasswd = user.firstName + AppSettings.DefaultUserPasswd;
+        const defaultPasswd = user.firstName.toLowerCase() + AppSettings.DefaultUserPasswd;
         const passwdHash = encryptionUtils.hashPassword(defaultPasswd, salt)
 
         user.password = passwdHash;
