@@ -2,15 +2,17 @@ import { BaseUseCase, IResult, Result } from "../../../..//shared/useCase/BaseUs
 import { IAdminRepository } from "../../ports/IAdminRepository";
 import { ISession } from "@/domain/session/ISession";
 import {IUserRepository} from "@/application/modules/user/ports/IUserRepository";
+import {User} from "@/domain/user/User";
 
 
 export class DeleteUserUseCase extends BaseUseCase {
     private readonly adminRepository: IAdminRepository;
+    private readonly userRepository: IUserRepository;
 
-
-    public constructor(adminRepository: IAdminRepository) {
+    public constructor(adminRepository: IAdminRepository, userRepository: IUserRepository) {
         super();
         this.adminRepository = adminRepository;
+        this.userRepository = userRepository;
     }
 
     async execute(id: number, session: ISession): Promise<IResult> {
@@ -30,6 +32,15 @@ export class DeleteUserUseCase extends BaseUseCase {
             result.setError(
                 this.resources.get(this.resourceKeys.DELETE_USER_NOT_AUTHORIZED),
                 this.applicationStatusCode.UNAUTHORIZED
+            );
+            return result;
+        }
+
+        const doesUserExists: User = await this.userRepository.getUserById(id);
+        if(!doesUserExists){
+            result.setError(
+                this.resources.get(this.resourceKeys.USER_DOESNT_EXISTS),
+                this.applicationStatusCode.BAD_REQUEST
             );
             return result;
         }

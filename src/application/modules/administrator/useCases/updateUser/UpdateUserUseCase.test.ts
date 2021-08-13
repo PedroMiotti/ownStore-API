@@ -14,7 +14,7 @@ const userRepositoryMock = mock<IUserRepository>();
 const updateUserUseCase = new UpdateUserUseCase(adminRepositoryMock, userRepositoryMock);
 
 const userUpdatedNonAdmin: UpdateUserDto = {
-    id: "1",
+    id: 1,
     firstName: "Pedro",
     lastName: "Miotti",
     email: "pedromiotti@hotmail.com",
@@ -22,7 +22,7 @@ const userUpdatedNonAdmin: UpdateUserDto = {
     isStaff: true
 }
 const userUpdateAdmin: UpdateUserDto = {
-    id: "1",
+    id: 1,
     firstName: "Pedro",
     lastName: "Miotti",
     email: "pedromiotti@hotmail.com",

@@ -4,7 +4,8 @@ import mapper from "mapper-tsk";
 import { getRepository } from "typeorm";
 import { User as UserEntity } from '../../entity/User';
 import { UserDto } from "@/infrastructure/models/user/dto/UserDto";
-import {CreateUserDto} from "@/application/modules/administrator/dto/CreateUserDto";
+import { CreateUserDto } from "@/application/modules/administrator/dto/CreateUserDto";
+import { UpdateUserDto } from "@/application/modules/administrator/dto/UpdateUserDto";
 
 
 class UserModel {
@@ -30,7 +31,46 @@ class UserModel {
 
         u.password = null;
         return mapper.mapObject(u, new User());
+    }
 
+    async delete(id: number): Promise<string> {
+
+        const userRepository = getRepository(UserEntity);
+
+        await userRepository.delete(id);
+
+        return "Deleted successfully";
+    }
+
+    async update(user: UpdateUserDto): Promise<User> {
+
+        const userRepository = getRepository(UserEntity);
+        const u = await userRepository.save({ ...user });
+
+        if(!u)
+            return null;
+
+        return mapper.mapObject(u, new User());
+    }
+
+    async getUserByEmail(email: string): Promise<User> {
+        const userRepository = getRepository(UserEntity);
+        const u: UserDto | undefined = await userRepository.findOne({ email });
+
+        if(!u)
+            return null;
+
+        return mapper.mapObject(u, new User());
+    }
+
+    async getUserById(id: number): Promise<User> {
+        const userRepository = getRepository(UserEntity);
+        const u: UserDto | undefined = await userRepository.findOne({ id });
+
+        if(!u)
+            return null;
+
+        return mapper.mapObject(u, new User());
     }
 }
 

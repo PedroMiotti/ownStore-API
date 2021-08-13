@@ -12,17 +12,29 @@ export class AdministratorRepository implements IAdminRepository {
             .then((user: User) => {
                 return user;
             }).catch((e) => {
-                logger.error("Error when user tries to login: ", e);
+                logger.error("Error when creating staff user : ", e);
                 return Promise.reject(e);
             });
     }
 
     deleteUser(id: number): Promise<string> {
-        return Promise.resolve("");
+        return UserModel.delete(id)
+            .then((res: string) => {
+                return res;
+            }).catch((e) => {
+                logger.error("Error when deleting staff user : ", e);
+                return Promise.reject(e);
+            });
     }
 
     updateUser(user: UpdateUserDto): Promise<User> {
-        return Promise.resolve(undefined);
+        return UserModel.update(user)
+            .then((user: User) => {
+                return user;
+            }).catch((e) => {
+                logger.error("Error when updating staff user : ", e);
+                return Promise.reject(e);
+            });
     }
 
 }

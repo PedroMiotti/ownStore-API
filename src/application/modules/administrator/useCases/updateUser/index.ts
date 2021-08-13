@@ -27,7 +27,7 @@ export class UpdateUserUseCase extends BaseUseCase{
             return result;
         }
 
-        const doesUserExists: User = await this.userRepository.getUserById(parseInt(user.id));
+        const doesUserExists: User = await this.userRepository.getUserById(user.id);
         if(!doesUserExists){
             result.setError(
                 this.resources.get(this.resourceKeys.USER_DOESNT_EXISTS),

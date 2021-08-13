@@ -1,25 +1,29 @@
 import { BaseRepository } from "@/adapter/repositories/base/BaseRepository";
 import { IUserRepository } from "@/application/modules/user/ports/IUserRepository";
 import { User } from "@/domain/user/User";
-import {getRepository} from "typeorm";
-import {User as UserEntity} from "@/infrastructure/entity/User";
-import {UserDto} from "@/infrastructure/models/user/dto/UserDto";
-import mapper from "mapper-tsk";
+import UserModel from "@/infrastructure/models/user/user.model";
+import logger from "@/application/shared/logger";
 
 
 export class UserRepository extends BaseRepository implements IUserRepository{
     async getUserByEmail(email: string): Promise<User> {
-        const userRepository = getRepository(UserEntity);
-        const u: UserDto | undefined = await userRepository.findOne({ email });
-
-        if(!u)
-            return null;
-
-        return mapper.mapObject(u, new User());
+        return UserModel.getUserByEmail(email)
+            .then((user: User) => {
+                return user;
+            }).catch((e) => {
+                logger.error("Error when retrieving user by email : ", e);
+                return Promise.reject(e);
+            });
     }
 
-    getUserById(id: number): Promise<User> {
-        return Promise.resolve(undefined);
+    async getUserById(id: number): Promise<User> {
+        return UserModel.getUserById(id)
+            .then((user: User) => {
+                return user;
+            }).catch((e) => {
+                logger.error("Error when retrieving user by id : ", e);
+                return Promise.reject(e);
+            });
     }
 
 }
