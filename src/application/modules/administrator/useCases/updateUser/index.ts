@@ -1,12 +1,12 @@
-import { BaseUseCase, IResultT, ResultT } from "../../../../shared/useCase/BaseUseCase";
-import { IAdminRepository } from "../../ports/IAdminRepository";
-import { ISession } from "@/domain/session/ISession";
-import { User } from "@/domain/user/User";
-import { UpdateUserDto } from "../../../../modules/administrator/dto/UpdateUserDto";
+import {BaseUseCase, IResultT, ResultT} from "../../../../shared/useCase/BaseUseCase";
+import {IAdminRepository} from "../../ports/IAdminRepository";
+import {ISession} from "@/domain/session/ISession";
+import {User} from "@/domain/user/User";
+import {UpdateUserDto} from "../../../../modules/administrator/dto/UpdateUserDto";
 import {IUserRepository} from "@/application/modules/user/ports/IUserRepository";
 
 
-export class UpdateUserUseCase extends BaseUseCase{
+export class UpdateUserUseCase extends BaseUseCase {
     private readonly adminRepository: IAdminRepository;
     private readonly userRepository: IUserRepository;
 
@@ -16,10 +16,10 @@ export class UpdateUserUseCase extends BaseUseCase{
         this.userRepository = userRepository;
     }
 
-    async execute(user: UpdateUserDto, session: ISession): Promise<IResultT<User>>{
+    async execute(user: UpdateUserDto, session: ISession): Promise<IResultT<User>> {
         const result = new ResultT<User>();
 
-        if(user.isAdmin && !session.isAdmin){
+        if (user.isAdmin && !session.isAdmin) {
             result.setError(
                 this.resources.get(this.resourceKeys.OPERATION_NOT_AUTHORIZED_ADMIN_ONLY),
                 this.applicationStatusCode.UNAUTHORIZED
@@ -27,8 +27,18 @@ export class UpdateUserUseCase extends BaseUseCase{
             return result;
         }
 
+        if (!user.id) {
+            result.setError(
+                this.resources.getWithParams(this.resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
+                    missingParams: "id",
+                }),
+                this.applicationStatusCode.BAD_REQUEST,
+            );
+            return result;
+        }
+
         const doesUserExists: User = await this.userRepository.getUserById(user.id);
-        if(!doesUserExists){
+        if (!doesUserExists) {
             result.setError(
                 this.resources.get(this.resourceKeys.USER_DOESNT_EXISTS),
                 this.applicationStatusCode.BAD_REQUEST
@@ -36,7 +46,7 @@ export class UpdateUserUseCase extends BaseUseCase{
             return result;
         }
 
-        if(doesUserExists.email !== user.email){
+        if (doesUserExists.email !== user.email) {
             const doesUserExists = await this.userRepository.getUserByEmail(user.email);
             if (doesUserExists) {
                 result.setError(
@@ -49,8 +59,8 @@ export class UpdateUserUseCase extends BaseUseCase{
             }
         }
 
-        if(doesUserExists.isAdmin !== user.isAdmin){
-            if(!session.isAdmin){
+        if (doesUserExists.isAdmin !== user.isAdmin) {
+            if (!session.isAdmin) {
                 result.setError(
                     this.resources.get(this.resourceKeys.OPERATION_NOT_AUTHORIZED_ADMIN_ONLY),
                     this.applicationStatusCode.UNAUTHORIZED

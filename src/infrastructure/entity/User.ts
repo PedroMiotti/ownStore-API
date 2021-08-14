@@ -31,5 +31,8 @@ export class User extends BaseEntity{
     isAdmin: boolean;
 
     @Column()
+    isStaff: boolean;
+
+    @Column()
     createAt: string;
 }

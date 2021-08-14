@@ -72,6 +72,23 @@ class UserModel {
 
         return mapper.mapObject(u, new User());
     }
+
+    async getAllStaffUsers(): Promise<User[]> {
+        const userRepository = getRepository(UserEntity);
+        const users: UserDto[] | undefined = await userRepository.find({ where: { isStaff: true} });
+
+        return mapper.mapArray<UserDto, User>(users, () => mapper.activator(User));
+
+    }
+
+    async getAllCustomerUsers(): Promise<User[]> {
+        const userRepository = getRepository(UserEntity);
+        const users: UserDto[] | undefined = await userRepository.find({ where: { isStaff: false} });
+
+        return mapper.mapArray<UserDto, User>(users, () => mapper.activator(User));
+    }
+
+
 }
 
 export default new UserModel();
