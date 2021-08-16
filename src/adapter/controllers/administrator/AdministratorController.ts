@@ -1,7 +1,7 @@
 import BaseController, {Request, Response, NextFunction} from "../base/BaseController";
 import {
     createUserUseCase,
-    deleteUserUseCase,
+    deleteUserUseCase, listAllCustomersUseCase,
     listAllStaffUseCase,
     updateUserUseCase
 } from "@/adapter/controllers/administrator/container";
@@ -71,7 +71,7 @@ export class AdministratorController extends BaseController {
 
     listAllCustomers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
-            this.handleResult(res, await listAllStaffUseCase.execute());
+            this.handleResult(res, await listAllCustomersUseCase.execute());
         } catch (error) {
             next(error);
         }

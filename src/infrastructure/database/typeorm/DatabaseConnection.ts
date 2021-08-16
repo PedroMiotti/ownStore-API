@@ -17,7 +17,9 @@ export default class MySqlConnection {
         this.password = AppSettings.MySQLPassword;
         this.database = AppSettings.MySQLDatabaseName;
 
-        this.createConnection().then(() => {logger.info("Connection with mysql successful !")}).catch(e => {
+        this.createConnection().then(() => {
+            logger.info("Connected with MySQL !")}
+        ).catch(e => {
             logger.error(e);
         });
     }
