@@ -1,4 +1,5 @@
-import {Entity, Column, PrimaryGeneratedColumn, BaseEntity} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, BeforeInsert } from "typeorm";
+import { DateTime } from "luxon";
 
 @Entity()
 export class User extends BaseEntity{
@@ -34,5 +35,10 @@ export class User extends BaseEntity{
     isStaff: boolean;
 
     @Column()
-    createAt: string;
+    createdAt: string;
+
+    @BeforeInsert()
+    async createAtGen(){
+        this.createdAt = DateTime.local().toISO();
+    }
 }

@@ -1,11 +1,12 @@
 import BaseController, {Request, Response, NextFunction} from "../base/BaseController";
 import {
     createUserUseCase,
-    deleteUserUseCase, listAllCustomersUseCase,
+    deleteUserUseCase,
+    listAllCustomersUseCase,
     listAllStaffUseCase,
     updateUserUseCase
 } from "@/adapter/controllers/administrator/container";
-import { CreateUserDto } from "@/application/modules/administrator/dto/CreateUserDto";
+import {CreateUserDto} from "@/application/modules/administrator/dto/CreateUserDto";
 import {UpdateUserDto} from "@/application/modules/administrator/dto/UpdateUserDto";
 
 export class AdministratorController extends BaseController {

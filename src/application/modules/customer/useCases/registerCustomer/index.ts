@@ -1,26 +1,24 @@
 import { ICustomerRepository } from "../../ports/ICustomerRepository";
 import { BaseUseCase, IResultT, ResultT, Result } from "../../../../shared/useCase/BaseUseCase";
-import { RegisterCustomerDto } from "../../dto/RegisterCustomerDto";
 import { IEmailProvider } from "../../../email/ports/IEmailProvider";
 import AppSettings from "../../../../shared/settings/AppSettings";
 import encryptionUtils from "../../../../shared/utils/EncryptionUtils";
 import dateTimeUtils from '../../../../shared/utils/DateTimeUtils';
-import {IUserRepository} from "@/application/modules/user/ports/IUserRepository";
+import { IUserRepository } from "@/application/modules/user/ports/IUserRepository";
+import { CreateUserDto } from "@/application/modules/administrator/dto/CreateUserDto";
 
 export class RegisterCustomerUseCase extends BaseUseCase{
     private readonly customerRepository: ICustomerRepository;
-    private readonly emailProvider: IEmailProvider;
     private readonly userRepository: IUserRepository;
 
-    public constructor(customerRepository: ICustomerRepository, emailProvider: IEmailProvider, userRepository: IUserRepository) {
+    public constructor(customerRepository: ICustomerRepository, userRepository: IUserRepository) {
         super();
         this.customerRepository = customerRepository;
-        this.emailProvider = emailProvider;
         this.userRepository = userRepository;
     }
 
-    async execute(customer: RegisterCustomerDto): Promise<IResultT<RegisterCustomerDto>> {
-        const result = new ResultT<RegisterCustomerDto>();
+    async execute(customer: CreateUserDto): Promise<IResultT<CreateUserDto>> {
+        const result = new ResultT<CreateUserDto>();
 
         if (!this.isValidRequest(result,  customer)) {
             return result;
@@ -63,7 +61,7 @@ export class RegisterCustomerUseCase extends BaseUseCase{
         return result;
     }
 
-    private isValidRequest(result: Result, customer: RegisterCustomerDto): boolean {
+    private isValidRequest(result: Result, customer: CreateUserDto): boolean {
         const validations = {};
         validations["email"] = customer.email;
         validations["firstName"] = customer.firstName;

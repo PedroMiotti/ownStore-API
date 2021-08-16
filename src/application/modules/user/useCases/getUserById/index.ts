@@ -30,7 +30,7 @@ export class GetUserByIdUseCase extends BaseUseCase{
 
         result.setData(existingUser, this.applicationStatusCode.SUCCESS);
         result.setMessage(
-            this.resources.get(this.resourceKeys.CUSTOMER_FOUND_SUCCESSFULLY), // TODO -> Change this to user_found_...
+            this.resources.get(this.resourceKeys.CUSTOMER_FOUND_SUCCESSFULLY),
             this.applicationStatusCode.SUCCESS,
         );
 
