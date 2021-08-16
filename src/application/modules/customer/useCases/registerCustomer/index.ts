@@ -5,15 +5,18 @@ import { IEmailProvider } from "../../../email/ports/IEmailProvider";
 import AppSettings from "../../../../shared/settings/AppSettings";
 import encryptionUtils from "../../../../shared/utils/EncryptionUtils";
 import dateTimeUtils from '../../../../shared/utils/DateTimeUtils';
+import {IUserRepository} from "@/application/modules/user/ports/IUserRepository";
 
 export class RegisterCustomerUseCase extends BaseUseCase{
     private readonly customerRepository: ICustomerRepository;
     private readonly emailProvider: IEmailProvider;
+    private readonly userRepository: IUserRepository;
 
-    public constructor(customerRepository: ICustomerRepository, emailProvider: IEmailProvider) {
+    public constructor(customerRepository: ICustomerRepository, emailProvider: IEmailProvider, userRepository: IUserRepository) {
         super();
         this.customerRepository = customerRepository;
         this.emailProvider = emailProvider;
+        this.userRepository = userRepository;
     }
 
     async execute(customer: RegisterCustomerDto): Promise<IResultT<RegisterCustomerDto>> {
@@ -23,7 +26,7 @@ export class RegisterCustomerUseCase extends BaseUseCase{
             return result;
         }
 
-        const existingCustomer = await this.customerRepository.getCustomerByEmail(customer.email);
+        const existingCustomer = await this.userRepository.getUserByEmail(customer.email);
         if(existingCustomer){
             result.setError(
                 this.resources.getWithParams(this.resourceKeys.EMAIL_ALREADY_IN_USE, {

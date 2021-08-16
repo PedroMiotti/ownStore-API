@@ -1,18 +1,21 @@
 import { BaseUseCase, Result, IResultT, ResultT } from "../../../../shared/useCase/BaseUseCase";
 import { ICustomerRepository } from "../../ports/ICustomerRepository";
 import { TokenDto } from "../../../auth/dto/TokenDto";
-import {CreateSessionTokenUseCase} from "../../../auth/useCases/createSessionToken";
-import {IAuthProvider} from "../../../auth/ports/IAuthProvider";
+import { CreateSessionTokenUseCase } from "../../../auth/useCases/createSessionToken";
+import { IAuthProvider } from "../../../auth/ports/IAuthProvider";
 import { CustomerProfileDto } from "../../dto/CustomerProfileDto";
+import { IUserRepository } from "@/application/modules/user/ports/IUserRepository";
 
 export class UpdateCustomerProfileUseCase extends BaseUseCase{
     private readonly customerRepository: ICustomerRepository;
     private readonly authProvider: IAuthProvider;
+    private readonly userRepository: IUserRepository;
 
-    public constructor(customerRepository: ICustomerRepository, authProvider: IAuthProvider) {
+    public constructor(customerRepository: ICustomerRepository, authProvider: IAuthProvider, userRepository: IUserRepository) {
         super();
         this.customerRepository = customerRepository;
         this.authProvider = authProvider;
+        this.userRepository = userRepository;
     }
 
     async execute(customer: CustomerProfileDto, id: number): Promise<IResultT<TokenDto>> {
@@ -26,7 +29,7 @@ export class UpdateCustomerProfileUseCase extends BaseUseCase{
             return result;
         }
 
-        const doesCustomerExists = await this.customerRepository.getCustomerById(id);
+        const doesCustomerExists = await this.userRepository.getUserById(id);
         if(!doesCustomerExists){
             result.setError(
                 this.resources.get(this.resourceKeys.USER_DOESNT_EXISTS),

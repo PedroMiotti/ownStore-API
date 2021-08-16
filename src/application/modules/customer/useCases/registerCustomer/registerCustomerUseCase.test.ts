@@ -5,11 +5,13 @@ import { Customer } from "../../../../../domain/customer/Customer";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
 import resources, { resourceKeys } from "../../../../shared/locals";
 import { IEmailProvider } from "../../../email/ports/IEmailProvider";
+import { IUserRepository } from "../../../user/ports/IUserRepository";
 
 
 const customerRepositoryMock = mock<ICustomerRepository>();
 const emailProviderMock = mock<IEmailProvider>();
-const registerCustomerUseCase = new RegisterCustomerUseCase(customerRepositoryMock, emailProviderMock);
+const userRepositoryMock = mock<IUserRepository>();
+const registerCustomerUseCase = new RegisterCustomerUseCase(customerRepositoryMock, emailProviderMock, userRepositoryMock);
 
 const dateNow: string = "2021-07-26T11:25:13.747-03:00";
 const salt: string = "$2a$10$vQ4px79jV9R.wJvBxsA.LO";
@@ -21,14 +23,15 @@ describe("Positive customer tests", () => {
     });
 
     beforeEach(() => {
-        customerRepositoryMock.getCustomerByEmail.mockReset();
+        userRepositoryMock.getUserById.mockReset();
+        userRepositoryMock.getUserByEmail.mockReset();
         customerRepositoryMock.registerCustomer.mockReset();
 
     });
 
     it("Should return a success if the customer was registered", async () => {
         const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com", false, false, "pedro123");
-        customerRepositoryMock.getCustomerByEmail.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
         customerRepositoryMock.registerCustomer.mockResolvedValueOnce(customer);
 
         const result = await registerCustomerUseCase.execute(customer);
@@ -45,13 +48,13 @@ describe("Negative customer tests", () => {
     });
 
     beforeEach(() => {
-        customerRepositoryMock.getCustomerByEmail.mockReset();
+        userRepositoryMock.getUserByEmail.mockReset();
         customerRepositoryMock.registerCustomer.mockReset();
     });
 
     it("should return a 400 error if customer with the same email already exists", async () => {
         const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com", false, false, "pedro123");
-        customerRepositoryMock.getCustomerByEmail.mockResolvedValueOnce(customer);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(customer);
 
         const result = await registerCustomerUseCase.execute(customer);
 
@@ -66,7 +69,7 @@ describe("Negative customer tests", () => {
 
     it("should return a 400 error if the customer does not provide all the required information ", async () => {
         const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com",false, false, null);
-        customerRepositoryMock.getCustomerByEmail.mockResolvedValueOnce(customer);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(customer);
 
         const result = await registerCustomerUseCase.execute(customer);
 
@@ -81,7 +84,7 @@ describe("Negative customer tests", () => {
 
     it("should return a 400 error if the customer info is null or undefined", async () => {
         const customer = new Customer(null, null, null,false, false, null);
-        customerRepositoryMock.getCustomerByEmail.mockResolvedValueOnce(customer);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(customer);
 
         const result = await registerCustomerUseCase.execute(customer);
 
@@ -96,7 +99,7 @@ describe("Negative customer tests", () => {
 
     it("should return a 400 error if there is an error while registering the user on the database", async () => {
         const customer = new Customer("Pedro", "Miotti", "pedromiotti7@gmail.com",false, false, "pedro123");
-        customerRepositoryMock.getCustomerByEmail.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserByEmail.mockResolvedValueOnce(null);
         customerRepositoryMock.registerCustomer.mockResolvedValueOnce(null);
 
         const result = await registerCustomerUseCase.execute(customer);

@@ -8,11 +8,13 @@ import applicationStatus from "../../../../shared/status/applicationStatusCodes"
 import { Customer } from "../../../../../domain/customer/Customer";
 import { CustomerProfileDto } from "../../dto/CustomerProfileDto";
 import AppSettings from "../../../../shared/settings/AppSettings";
+import {IUserRepository} from "../../../user/ports/IUserRepository";
 
 
 const customerRepositoryMock = mock<ICustomerRepository>();
 const authProviderMock = mock<IAuthProvider>();
-const updateCustomerProfile = new UpdateCustomerProfileUseCase(customerRepositoryMock, authProviderMock);
+const userRepositoryMock = mock<IUserRepository>();
+const updateCustomerProfile = new UpdateCustomerProfileUseCase(customerRepositoryMock, authProviderMock, userRepositoryMock);
 
 const found_customer: Customer = new Customer("Pedro", "Miotti", "pedromiotti@hotmail.com", false, false);
 const customer: CustomerProfileDto = {firstName: "Pedro", lastName: "Miotti", phone: "1522222"};
@@ -25,11 +27,12 @@ describe("Positive auth tests", () => {
     });
 
     beforeEach(() => {
+        userRepositoryMock.getUserById.mockReset();
         authProviderMock.login.mockReset();
     });
 
     it("Should return a success if the customer profile was updated", async () => {
-        customerRepositoryMock.getCustomerById.mockResolvedValueOnce(found_customer);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(found_customer);
         customerRepositoryMock.updateCustomer.mockResolvedValueOnce(found_customer);
 
         const result = await updateCustomerProfile.execute(customer, 1);
@@ -72,7 +75,7 @@ describe("Negative auth tests", () => {
     });
 
     it("Should return a 400 error if the customer does not exists", async () => {
-        customerRepositoryMock.getCustomerById.mockResolvedValueOnce(null);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(null);
 
         const result = await updateCustomerProfile.execute(customer, 1);
 
@@ -82,7 +85,7 @@ describe("Negative auth tests", () => {
     });
 
     it("Should return a 400 error if there is an error updating the customer", async () => {
-        customerRepositoryMock.getCustomerById.mockResolvedValueOnce(found_customer);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(found_customer);
         customerRepositoryMock.updateCustomer.mockResolvedValueOnce(null);
 
         const result = await updateCustomerProfile.execute(customer, 1);
