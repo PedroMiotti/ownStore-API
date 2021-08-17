@@ -1,8 +1,7 @@
 import BaseController, {NextFunction, Request, Response} from "@/adapter/controllers/base/BaseController";
 import { CreateUserDto } from "@/application/modules/administrator/dto/CreateUserDto";
-import {registerCustomerUseCase, updateCustomerUseCase} from './container/index'
+import {deleteCustomerUseCase, registerCustomerUseCase, updateCustomerUseCase} from './container/index'
 import { UpdateUserDto } from "@/application/modules/administrator/dto/UpdateUserDto";
-import { updateUserUseCase } from "@/adapter/controllers/administrator/container";
 
 export class CustomerController extends BaseController {
     constructor() {
@@ -22,6 +21,17 @@ export class CustomerController extends BaseController {
             };
 
             this.handleResult(res, await registerCustomerUseCase.execute(user));
+
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    delete = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        try {
+
+            const id: number = parseInt(req.params?.id);
+            this.handleResult(res, await deleteCustomerUseCase.execute(id, req.session));
 
         } catch (error) {
             next(error);
@@ -55,7 +65,7 @@ export class CustomerController extends BaseController {
 
         this.router.post('/v1/customer/register', this.register);
         this.router.put('/v1/customer/update/:id', this.update);
-
+        this.router.delete('/v1/customer/delete/:id', this.delete);
 
     }
 

@@ -27,5 +27,7 @@
   "CUSTOMER_DELETED_SUCCESSFULLY": "Customer deleted successfully !",
   "ERROR_CREATING_CUSTOMER": "Error creating customer !",
   "ERROR_UPDATING_CUSTOMER": "Error updating customer !",
-  "ERROR_DELETING_CUSTOMER": "Error deleting customer !"
+  "ERROR_DELETING_CUSTOMER": "Error deleting customer !",
+  "DELETE_CUSTOMER_NOT_AUTHORIZED": "A customer can only delete himself ! Operation not authorized."
+
 }

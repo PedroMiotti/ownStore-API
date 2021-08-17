@@ -11,7 +11,7 @@ import AppSettings from "../../../../shared/settings/AppSettings";
 const authProviderMock = mock<IAuthProvider>();
 const loginUseCase = new LoginUseCase(authProviderMock);
 
-const mockToken = "hui3h2r8793y28rh4ui3hq8r94y3q89ry34hwqiohiY*Y@#*Y$*yut8hr4eigf"
+const mockToken = "hui3h2r8793y28rh4ui3hq8r94y3q89ry34hwqiohiY*Y@#*Y$*yut8hr4eigf";
 const hashedPasswd = "$2a$10$s8cJXa4NK9cmwyfSQCtw0ehi0vZY3XhpuatAmbK.bGJqyZzdJ38z2";
 
 describe("Positive auth tests", () => {

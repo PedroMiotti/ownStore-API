@@ -26,6 +26,7 @@
   "CUSTOMER_DELETED_SUCCESSFULLY": "Cliente deletado com sucesso !",
   "ERROR_CREATING_CUSTOMER": "Erro ao criar o cliente !",
   "ERROR_UPDATING_CUSTOMER": "Erro ao atualizar o cliente !",
-  "ERROR_DELETING_CUSTOMER": "Erro ao deletar o cliente !"
+  "ERROR_DELETING_CUSTOMER": "Erro ao deletar o cliente !",
+  "DELETE_CUSTOMER_NOT_AUTHORIZED": "Um cliente só pode deletar a sí mesmo ! Operação não autorizada."
 
 }

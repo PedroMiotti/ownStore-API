@@ -6,7 +6,6 @@ import { User as UserEntity } from '../../entity/User';
 import { UserDto } from "@/infrastructure/models/user/dto/UserDto";
 import { CreateUserDto } from "@/application/modules/administrator/dto/CreateUserDto";
 import { UpdateUserDto } from "@/application/modules/administrator/dto/UpdateUserDto";
-import { CustomerProfileDto } from "@/application/modules/customer/dto/CustomerProfileDto";
 
 
 class UserModel {
@@ -15,12 +14,10 @@ class UserModel {
 
         const userRepository = getRepository(UserEntity);
         const u: UserDto | undefined = await userRepository.findOne({ email: user.email });
-
         if(!u)
             return null;
 
         return mapper.mapObject(u, new User());
-
     }
 
     async create(user: CreateUserDto): Promise<User> {

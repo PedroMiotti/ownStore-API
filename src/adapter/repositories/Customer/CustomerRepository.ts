@@ -8,7 +8,13 @@ import {UpdateUserDto} from "@/application/modules/administrator/dto/UpdateUserD
 
 export class CustomerRepository extends BaseRepository implements ICustomerRepository{
     deleteCustomer(id: number): Promise<string> {
-        return Promise.resolve("");
+        return UserModel.delete(id)
+            .then((res: string) => {
+                return res;
+            }).catch((e) => {
+                logger.error("Error when deleting customer : ", e);
+                return Promise.reject(e);
+            });
     }
 
     listAllCustomers(): Promise<Customer[]> {

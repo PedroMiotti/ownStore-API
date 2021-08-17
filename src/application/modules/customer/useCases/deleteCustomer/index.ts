@@ -1,5 +1,6 @@
-import { BaseUseCase, IResultT, ResultT, Result, IResult } from "../../../../shared/useCase/BaseUseCase";
+import { BaseUseCase, Result, IResult } from "../../../../shared/useCase/BaseUseCase";
 import { ICustomerRepository } from "../../ports/ICustomerRepository";
+import {ISession} from "@/domain/session/ISession";
 
 export class DeleteCustomerUseCase extends BaseUseCase{
     private readonly customerRepository: ICustomerRepository
@@ -9,7 +10,7 @@ export class DeleteCustomerUseCase extends BaseUseCase{
         this.customerRepository = customerRepository;
     }
 
-    async execute(id: number): Promise<IResult>{
+    async execute(id: number, session: ISession): Promise<IResult>{
         const result = new Result();
 
         if(!id){
@@ -21,6 +22,15 @@ export class DeleteCustomerUseCase extends BaseUseCase{
             );
             return result;
         }
+
+        if(session.id !== id){
+            result.setError(
+                this.resources.get(this.resourceKeys.DELETE_CUSTOMER_NOT_AUTHORIZED),
+                this.applicationStatusCode.UNAUTHORIZED
+            );
+            return result;
+        }
+
 
         const deletedCustomer = await this.customerRepository.deleteCustomer(id);
         if(!deletedCustomer){
