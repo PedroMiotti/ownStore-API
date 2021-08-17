@@ -37,8 +37,28 @@ export class User extends BaseEntity{
     @Column()
     createdAt: string;
 
+    @Column()
+    gender: number;
+
+    @Column()
+    defaultBillingAddress: number;
+
+    @Column()
+    defaultShippingAddress: number;
+
+    @Column()
+    nonPromoRewardPoints: number;
+
+    @Column()
+    promoRewardPoints: number;
+
+    @Column()
+    dateOfBirth: string;
+
+
+
     @BeforeInsert()
-    async createAtGen(){
+    async createdAtGen(){
         this.createdAt = DateTime.local().toISO();
     }
 }

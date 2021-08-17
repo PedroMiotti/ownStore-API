@@ -6,9 +6,11 @@ import { User as UserEntity } from '../../entity/User';
 import { UserDto } from "@/infrastructure/models/user/dto/UserDto";
 import { CreateUserDto } from "@/application/modules/administrator/dto/CreateUserDto";
 import { UpdateUserDto } from "@/application/modules/administrator/dto/UpdateUserDto";
+import { CustomerProfileDto } from "@/application/modules/customer/dto/CustomerProfileDto";
 
 
 class UserModel {
+    // TODO -> Remove this ?
     async login(user: UserLoginDto): Promise<User> {
 
         const userRepository = getRepository(UserEntity);

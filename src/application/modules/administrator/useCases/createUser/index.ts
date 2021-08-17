@@ -49,7 +49,7 @@ export class CreateUserUseCase extends BaseUseCase {
         const passwdHash = encryptionUtils.hashPassword(defaultPasswd, salt)
 
         user.password = passwdHash;
-        user.createdAt = dateTimeUtils.getISONow();
+        user.isStaff = true;
 
         const wasRegistered: User = await this.adminRepository.createUser(user);
         if (!wasRegistered) {

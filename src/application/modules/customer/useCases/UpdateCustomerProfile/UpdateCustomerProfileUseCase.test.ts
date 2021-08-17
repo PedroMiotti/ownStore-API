@@ -6,9 +6,9 @@ import resources, { resourceKeys } from "../../../../shared/locals";
 import { TokenDto } from "../../../auth/dto/TokenDto";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
 import { Customer } from "../../../../../domain/customer/Customer";
-import { CustomerProfileDto } from "../../dto/CustomerProfileDto";
 import AppSettings from "../../../../shared/settings/AppSettings";
 import {IUserRepository} from "../../../user/ports/IUserRepository";
+import {UpdateUserDto} from "../../../administrator/dto/UpdateUserDto";
 
 
 const customerRepositoryMock = mock<ICustomerRepository>();
@@ -17,7 +17,7 @@ const userRepositoryMock = mock<IUserRepository>();
 const updateCustomerProfile = new UpdateCustomerProfileUseCase(customerRepositoryMock, authProviderMock, userRepositoryMock);
 
 const found_customer: Customer = new Customer("Pedro", "Miotti", "pedromiotti@hotmail.com", false, false);
-const customer: CustomerProfileDto = {firstName: "Pedro", lastName: "Miotti", phone: "1522222"};
+const customer: UpdateUserDto = { email: "pedromiotti@hotmail.com", id: 1, firstName: "Pedro", lastName: "Miotti", phone: "1522222" };
 
 
 describe("Positive auth tests", () => {
@@ -35,7 +35,7 @@ describe("Positive auth tests", () => {
         userRepositoryMock.getUserById.mockResolvedValueOnce(found_customer);
         customerRepositoryMock.updateCustomer.mockResolvedValueOnce(found_customer);
 
-        const result = await updateCustomerProfile.execute(customer, 1);
+        const result = await updateCustomerProfile.execute(customer);
 
         const data = result.data as TokenDto;
         expect(result.success).toBeTruthy();
@@ -56,9 +56,9 @@ describe("Negative auth tests", () => {
     });
 
     it("Should return a 400 error if the customer info is null", async () => {
-        const customerNull: CustomerProfileDto = null;
+        const customerNull: UpdateUserDto = null;
 
-        const result = await updateCustomerProfile.execute(customerNull, 1);
+        const result = await updateCustomerProfile.execute(customerNull);
 
         expect(result.success).toBeFalsy();
         expect(result.statusCode).toBe(applicationStatus.BAD_REQUEST);
@@ -66,8 +66,9 @@ describe("Negative auth tests", () => {
     });
 
     it("Should return a 400 error if the customer id is null", async () => {
+        const customerNoID: UpdateUserDto = { email: "pedromiotti@hotmail.com", id: null, firstName: "Pedro", lastName: "Miotti", phone: "1522222" };
 
-        const result = await updateCustomerProfile.execute(customer, null);
+        const result = await updateCustomerProfile.execute(customerNoID);
 
         expect(result.success).toBeFalsy();
         expect(result.statusCode).toBe(applicationStatus.BAD_REQUEST);
@@ -77,7 +78,7 @@ describe("Negative auth tests", () => {
     it("Should return a 400 error if the customer does not exists", async () => {
         userRepositoryMock.getUserById.mockResolvedValueOnce(null);
 
-        const result = await updateCustomerProfile.execute(customer, 1);
+        const result = await updateCustomerProfile.execute(customer);
 
         expect(result.success).toBeFalsy();
         expect(result.statusCode).toBe(applicationStatus.BAD_REQUEST);
@@ -88,7 +89,7 @@ describe("Negative auth tests", () => {
         userRepositoryMock.getUserById.mockResolvedValueOnce(found_customer);
         customerRepositoryMock.updateCustomer.mockResolvedValueOnce(null);
 
-        const result = await updateCustomerProfile.execute(customer, 1);
+        const result = await updateCustomerProfile.execute(customer);
 
         expect(result.success).toBeFalsy();
         expect(result.statusCode).toBe(applicationStatus.BAD_REQUEST);

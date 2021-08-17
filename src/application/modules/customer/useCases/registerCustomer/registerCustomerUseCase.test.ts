@@ -9,13 +9,8 @@ import { IUserRepository } from "../../../user/ports/IUserRepository";
 
 
 const customerRepositoryMock = mock<ICustomerRepository>();
-const emailProviderMock = mock<IEmailProvider>();
 const userRepositoryMock = mock<IUserRepository>();
-const registerCustomerUseCase = new RegisterCustomerUseCase(customerRepositoryMock, emailProviderMock, userRepositoryMock);
-
-const dateNow: string = "2021-07-26T11:25:13.747-03:00";
-const salt: string = "$2a$10$vQ4px79jV9R.wJvBxsA.LO";
-const hashedPasswd: string = "$2a$10$g04MiYGnWqNh6O08Wp7iSuTtonAkPjrJSHeZY9DoN6BJYR7q2b4x2";
+const registerCustomerUseCase = new RegisterCustomerUseCase(customerRepositoryMock, userRepositoryMock);
 
 describe("Positive customer tests", () => {
     beforeAll(() => {

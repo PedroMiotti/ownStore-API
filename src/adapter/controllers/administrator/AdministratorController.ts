@@ -6,8 +6,8 @@ import {
     listAllStaffUseCase,
     updateUserUseCase
 } from "@/adapter/controllers/administrator/container";
-import {CreateUserDto} from "@/application/modules/administrator/dto/CreateUserDto";
-import {UpdateUserDto} from "@/application/modules/administrator/dto/UpdateUserDto";
+import { CreateUserDto } from "@/application/modules/administrator/dto/CreateUserDto";
+import { UpdateUserDto } from "@/application/modules/administrator/dto/UpdateUserDto";
 
 export class AdministratorController extends BaseController {
 

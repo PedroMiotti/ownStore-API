@@ -1,10 +1,10 @@
-import { BaseUseCase, Result, IResultT, ResultT } from "../../../../shared/useCase/BaseUseCase";
+import { BaseUseCase, IResultT, ResultT } from "../../../../shared/useCase/BaseUseCase";
 import { ICustomerRepository } from "../../ports/ICustomerRepository";
 import { TokenDto } from "../../../auth/dto/TokenDto";
 import { CreateSessionTokenUseCase } from "../../../auth/useCases/createSessionToken";
 import { IAuthProvider } from "../../../auth/ports/IAuthProvider";
-import { CustomerProfileDto } from "../../dto/CustomerProfileDto";
 import { IUserRepository } from "@/application/modules/user/ports/IUserRepository";
+import {UpdateUserDto} from "@/application/modules/administrator/dto/UpdateUserDto";
 
 export class UpdateCustomerProfileUseCase extends BaseUseCase{
     private readonly customerRepository: ICustomerRepository;
@@ -18,10 +18,10 @@ export class UpdateCustomerProfileUseCase extends BaseUseCase{
         this.userRepository = userRepository;
     }
 
-    async execute(customer: CustomerProfileDto, id: number): Promise<IResultT<TokenDto>> {
+    async execute(customer: UpdateUserDto): Promise<IResultT<TokenDto>> {
         const result = new ResultT<TokenDto>();
 
-        if(!customer || !id){
+        if(!customer || !customer.id){
             result.setError(
                 this.resources.get(this.resourceKeys.ERROR_UPDATING_CUSTOMER),
                 this.applicationStatusCode.BAD_REQUEST
@@ -29,7 +29,7 @@ export class UpdateCustomerProfileUseCase extends BaseUseCase{
             return result;
         }
 
-        const doesCustomerExists = await this.userRepository.getUserById(id);
+        const doesCustomerExists = await this.userRepository.getUserById(customer.id);
         if(!doesCustomerExists){
             result.setError(
                 this.resources.get(this.resourceKeys.USER_DOESNT_EXISTS),

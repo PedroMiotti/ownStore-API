@@ -1,9 +1,7 @@
 import { ICustomerRepository } from "../../ports/ICustomerRepository";
 import { BaseUseCase, IResultT, ResultT, Result } from "../../../../shared/useCase/BaseUseCase";
-import { IEmailProvider } from "../../../email/ports/IEmailProvider";
 import AppSettings from "../../../../shared/settings/AppSettings";
 import encryptionUtils from "../../../../shared/utils/EncryptionUtils";
-import dateTimeUtils from '../../../../shared/utils/DateTimeUtils';
 import { IUserRepository } from "@/application/modules/user/ports/IUserRepository";
 import { CreateUserDto } from "@/application/modules/administrator/dto/CreateUserDto";
 
@@ -38,7 +36,8 @@ export class RegisterCustomerUseCase extends BaseUseCase{
         const salt = encryptionUtils.getSalt(parseInt(AppSettings.EncryptionSaltRounds));
         const passwordHash = encryptionUtils.hashPassword(customer.password, salt);
         customer.password = passwordHash;
-        customer.createdAt = dateTimeUtils.getISONow();
+        customer.isAdmin = false;
+        customer.isStaff = false;
 
         const wasRegistered = await this.customerRepository.registerCustomer(customer);
         if(!wasRegistered){
