@@ -16,6 +16,9 @@ export class ListAllCustomersUseCase extends BaseUseCase{
 
         const users = await this.customerRepository.listAllCustomers();
 
+        if(users.length >= 1)
+            users.forEach(user => user.password = null);
+
         result.setData(users, this.applicationStatusCode.SUCCESS);
 
         result.setMessage(
