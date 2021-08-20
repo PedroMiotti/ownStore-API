@@ -1,5 +1,5 @@
 import { BaseUseCase, IResultT, Result, ResultT } from "../../../../shared/useCase/BaseUseCase";
-import { IAddressRepository } from "../../../../modules/Address/ports/IAddressRepository";
+import { IAddressRepository } from "../../ports/IAddressRepository";
 import { Address } from "../../../../../domain/address/Address";
 import { IUserRepository } from "../../../../modules/user/ports/IUserRepository";
 import { Customer } from "../../../../../domain/customer/Customer";
