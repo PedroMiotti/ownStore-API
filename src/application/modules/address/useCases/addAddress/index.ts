@@ -31,8 +31,8 @@ export class AddAddressUseCase extends BaseUseCase {
             return result;
         }
 
-        const { firstName, lastName, email, isStaff, isAdmin } = doesCustomerExists
-        address.customer = new Customer(firstName, lastName, email, isStaff, isAdmin);
+        const { id, firstName, lastName, email, isStaff, isAdmin } = doesCustomerExists
+        address.customer = new Customer(firstName, lastName, email, isStaff, isAdmin, null, id);
 
         const wasRegistered: Address = await this.addressRepository.addAddress(address);
         if (!wasRegistered) {

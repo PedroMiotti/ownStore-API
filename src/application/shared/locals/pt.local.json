@@ -32,6 +32,7 @@
   "ERROR_ADDING_ADDRESS": "Erro ao adicionar um endereço !",
   "ERROR_DELETING_ADDRESS": "Erro ao deletar um endereço !",
   "ERROR_UPDATING_ADDRESS": "Erro ao updating um endereço !",
-  "ADDRESS_ADDED_SUCCESSFULLY": "Endereço adicionado com sucesso !"
+  "ADDRESS_ADDED_SUCCESSFULLY": "Endereço adicionado com sucesso !",
+  "ADDRESS_NOT_FOUND": "Esse endereço não foi encontrado !"
 
 }
