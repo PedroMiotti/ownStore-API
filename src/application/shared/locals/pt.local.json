@@ -27,6 +27,11 @@
   "ERROR_CREATING_CUSTOMER": "Erro ao criar o cliente !",
   "ERROR_UPDATING_CUSTOMER": "Erro ao atualizar o cliente !",
   "ERROR_DELETING_CUSTOMER": "Erro ao deletar o cliente !",
-  "DELETE_CUSTOMER_NOT_AUTHORIZED": "Um cliente só pode deletar a sí mesmo ! Operação não autorizada."
+  "DELETE_CUSTOMER_NOT_AUTHORIZED": "Um cliente só pode deletar a sí mesmo ! Operação não autorizada.",
+
+  "ERROR_ADDING_ADDRESS": "Erro ao adicionar um endereço !",
+  "ERROR_DELETING_ADDRESS": "Erro ao deletar um endereço !",
+  "ERROR_UPDATING_ADDRESS": "Erro ao updating um endereço !",
+  "ADDRESS_ADDED_SUCCESSFULLY": "Endereço adicionado com sucesso !"
 
 }

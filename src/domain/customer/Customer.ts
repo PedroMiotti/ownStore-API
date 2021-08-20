@@ -1,6 +1,6 @@
 import { User } from "../user/User";
 import { ICustomer } from "./Customer.interface";
-import {Address} from "../address/Address";
+import { Address } from "../address/Address";
 
 export class Customer extends User implements ICustomer{
     phone: string;

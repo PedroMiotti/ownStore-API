@@ -28,6 +28,11 @@
   "ERROR_CREATING_CUSTOMER": "Error creating customer !",
   "ERROR_UPDATING_CUSTOMER": "Error updating customer !",
   "ERROR_DELETING_CUSTOMER": "Error deleting customer !",
-  "DELETE_CUSTOMER_NOT_AUTHORIZED": "A customer can only delete himself ! Operation not authorized."
+  "DELETE_CUSTOMER_NOT_AUTHORIZED": "A customer can only delete himself ! Operation not authorized.",
+
+  "ERROR_ADDING_ADDRESS": "Error adding address !",
+  "ERROR_DELETING_ADDRESS": "Error deleting address ! !",
+  "ERROR_UPDATING_ADDRESS": "Error updating address ! !",
+  "ADDRESS_ADDED_SUCCESSFULLY": "Address added successfully !"
 
 }

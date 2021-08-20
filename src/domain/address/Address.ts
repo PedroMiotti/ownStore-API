@@ -1,9 +1,11 @@
-import {IAddress} from "./Address.interface";
+import { IAddress } from "./Address.interface";
+import { Customer } from "@/domain/customer/Customer";
 
 export class Address implements IAddress{
     id: number;
+    customer: Customer;
     streetName: string;
-    postCode: string;
+    postalCode: string;
     number: string;
     neighborhood: string;
     city: string;
@@ -11,9 +13,9 @@ export class Address implements IAddress{
     country: string;
     complement: string;
 
-    constructor(streetName: string, postCode: string, number: string, neighborhood: string, city: string, state: string, country: string, complement: string) {
+    constructor(customer?: Customer, streetName?: string, postalCode?: string, number?: string, neighborhood?: string, city?: string, state?: string, country?: string, complement?: string) {
         this.streetName = streetName;
-        this.postCode = postCode;
+        this.postalCode = postalCode;
         this.number = number;
         this.neighborhood = neighborhood;
         this.city = city;
