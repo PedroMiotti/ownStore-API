@@ -5,6 +5,7 @@ import UserModel from "@/infrastructure/models/user/user.model";
 import logger from "@/application/shared/logger";
 import { CreateUserDto } from "@/application/modules/administrator/dto/CreateUserDto";
 import {UpdateUserDto} from "@/application/modules/administrator/dto/UpdateUserDto";
+import {Address} from "@/domain/address/Address";
 
 export class CustomerRepository extends BaseRepository implements ICustomerRepository{
     deleteCustomer(id: number): Promise<string> {
@@ -45,6 +46,10 @@ export class CustomerRepository extends BaseRepository implements ICustomerRepos
                 logger.error("Error when updating staff user : ", e);
                 return Promise.reject(e);
             });
+    }
+
+    setDefaultAddress(customer: Customer, address: Address, billingOrShipping: number): Promise<Customer> {
+        return Promise.resolve(undefined);
     }
 
 }
