@@ -5,6 +5,7 @@
   "main": "./build/src/index.js",
   "scripts": {
     "test": "npm run build && jest ",
+    "int-test": "DOTENV_CONFIG_PATH=.env.test npm run build && jest ",
     "build": "tsc --sourceMap false",
     "start": "npm run build && node build/src/index",
     "release": "semantic-release --no-ci",
