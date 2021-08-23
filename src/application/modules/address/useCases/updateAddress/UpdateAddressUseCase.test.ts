@@ -28,7 +28,7 @@ describe("Positive address tests", () => {
 
         expect(result.success).toBeTruthy();
         expect(result.statusCode).toBe(applicationStatus.SUCCESS);
-        expect(result.message).toBe(resources.get(resourceKeys.ADDRESS_ADDED_SUCCESSFULLY));
+        expect(result.message).toBe(resources.get(resourceKeys.ADDRESS_OPERATION_SUCCESSFULLY));
     });
 });
 

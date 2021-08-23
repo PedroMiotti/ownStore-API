@@ -36,7 +36,7 @@ export class UpdateAddressUseCase extends BaseUseCase {
         result.setData(wasUpdated, this.applicationStatusCode.SUCCESS);
 
         result.setMessage(
-            this.resources.get(this.resourceKeys.ADDRESS_ADDED_SUCCESSFULLY),
+            this.resources.get(this.resourceKeys.ADDRESS_OPERATION_SUCCESSFULLY),
             this.applicationStatusCode.SUCCESS,
         );
 
