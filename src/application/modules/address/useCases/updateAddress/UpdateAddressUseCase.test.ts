@@ -1,17 +1,14 @@
-import resources, {resourceKeys} from "../../../../shared/locals";
-import {mock} from "jest-mock-extended";
-import {IAddressRepository} from "../../ports/IAddressRepository";
-import {UpdateAddressUseCase} from "./index";
-import {Address} from "../../../../../domain/address/Address";
-import {Customer} from "../../../../../domain/customer/Customer";
+import resources, { resourceKeys } from "../../../../shared/locals";
+import { mock } from "jest-mock-extended";
+import { IAddressRepository } from "../../ports/IAddressRepository";
+import { UpdateAddressUseCase } from "./index";
+import { Address } from "../../../../../domain/address/Address";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
-
 
 const addressRepositoryMock = mock<IAddressRepository>();
 const updateAddressUseCase = new UpdateAddressUseCase(addressRepositoryMock);
 
 const address: Address = new Address(null, "Rua barcelona", "112233", "123", "Itaquera", "Itapetininga", "SP", "Brasil", "Apt. 234");
-const customer: Customer = new Customer("Pedro", "Miotti", "pedromiotti@hotmail.com", true, false);
 
 describe("Positive address tests", () => {
     beforeAll(() => {
@@ -23,7 +20,7 @@ describe("Positive address tests", () => {
         addressRepositoryMock.getAddressById.mockReset();
     });
 
-    it("Should return a success if the address was added", async () => {
+    it("Should return a success if the address was updated", async () => {
         addressRepositoryMock.updateAddress.mockResolvedValueOnce(address);
         addressRepositoryMock.getAddressById.mockResolvedValueOnce(address);
 

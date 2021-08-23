@@ -1,6 +1,6 @@
 import { BaseUseCase, Result, IResult } from "../../../../shared/useCase/BaseUseCase";
 import { ICustomerRepository } from "../../ports/ICustomerRepository";
-import {ISession} from "@/domain/session/ISession";
+import { ISession } from "@/domain/session/ISession";
 
 export class DeleteCustomerUseCase extends BaseUseCase{
     private readonly customerRepository: ICustomerRepository
@@ -30,7 +30,6 @@ export class DeleteCustomerUseCase extends BaseUseCase{
             );
             return result;
         }
-
 
         const deletedCustomer = await this.customerRepository.deleteCustomer(id);
         if(!deletedCustomer){

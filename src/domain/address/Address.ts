@@ -14,6 +14,7 @@ export class Address implements IAddress{
     complement: string;
 
     constructor(customer?: Customer, streetName?: string, postalCode?: string, number?: string, neighborhood?: string, city?: string, state?: string, country?: string, complement?: string) {
+        this.customer = customer;
         this.streetName = streetName;
         this.postalCode = postalCode;
         this.number = number;

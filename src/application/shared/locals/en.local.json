@@ -5,7 +5,6 @@
   "PROCESSING_DATA_CLIENT_ERROR": "Error processing http client data.",
   "AUTHORIZATION_REQUIRED": "Authorization is required.",
 
-
   "EMAIL_ALREADY_IN_USE": "This e-mail is already in use !",
   "INVALID_EMAIL_OR_PASSWORD": "E-mail or password are incorrect !",
   "USER_DOESNT_EXISTS": "This user does not exist !",
@@ -20,7 +19,6 @@
   "USERS_RETRIEVED_SUCCESSFULLY": "Users retrieved successfully !",
   "DELETE_USER_NOT_AUTHORIZED": "Only a admin user can delete another user !",
 
-
   "CUSTOMER_FOUND_SUCCESSFULLY": "User found successfully !",
   "CUSTOMER_CREATED_SUCCESSFULLY": "Customer was created successfully !",
   "CUSTOMER_UPDATED_SUCCESSFULLY": "Customer updated successfully !",
@@ -34,7 +32,8 @@
   "ERROR_DELETING_ADDRESS": "Error deleting address ! !",
   "ERROR_UPDATING_ADDRESS": "Error updating address ! !",
   "ADDRESS_ADDED_SUCCESSFULLY": "Address added successfully !",
-  "ADDRESS_NOT_FOUND": "This address was not found !"
-
+  "ADDRESS_NOT_FOUND": "This address was not found !",
+  "ADDRESS_OPERATION_SUCCESSFULLY": "Address operation done successfully !",
+  "ADDRESS_OPERATION_NOT_AUTHORIZED": "This address does not belong to you ! Operação não autorizada."
 
 }
