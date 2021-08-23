@@ -1,4 +1,4 @@
-import { BaseUseCase, IResultT, Result, ResultT } from "../../../../shared/useCase/BaseUseCase";
+import { BaseUseCase, IResultT, ResultT } from "../../../../shared/useCase/BaseUseCase";
 import { IAddressRepository } from "../../ports/IAddressRepository";
 import { Address } from "../../../../../domain/address/Address";
 
@@ -12,6 +12,8 @@ export class UpdateAddressUseCase extends BaseUseCase {
 
     async execute(address: Address): Promise<IResultT<Address>>{
         const result = new ResultT<Address>();
+
+        // * Database table is set to cascade on delete so no need to check if the customer exists.
 
         const doesAddressExists: Address = await this.addressRepository.getAddressById(address.id);
         if (!doesAddressExists) {
