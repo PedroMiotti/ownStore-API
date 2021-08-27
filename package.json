@@ -4,12 +4,14 @@
   "description": "OwnStore API",
   "main": "./build/src/index.js",
   "scripts": {
-    "test": "npm run build && jest ",
-    "int-test": "DOTENV_CONFIG_PATH=.env.test npm run build && jest ",
-    "build": "tsc --sourceMap false",
+    "dev": "npm run build && ts-node-dev -r tsconfig-paths/register src/index.ts",
     "start": "npm run build && node build/src/index",
+    "build": "tsc --sourceMap false",
     "release": "semantic-release --no-ci",
-    "dev": "npm run build && ts-node-dev -r tsconfig-paths/register src/index.ts"
+    "test:unit": "npm run build && jest ",
+    "test:integration": "DOTENV_CONFIG_PATH=.env.test npm run build && jest ",
+    "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n migration -d src/infrastructure/migrations",
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run --config src/infrastructure/database/typeorm/ormconfig.ts"
   },
   "repository": {
     "type": "git",
@@ -26,7 +28,7 @@
     "jsonwebtoken": "^8.5.1",
     "luxon": "^2.0.1",
     "mapper-tsk": "^2.0.0",
-    "mysql": "^2.18.1",
+    "mysql2": "^2.3.0",
     "reflect-metadata": "^0.1.13",
     "resources-tsk": "^2.0.0",
     "result-tsk": "^2.0.0",

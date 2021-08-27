@@ -1,5 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, BeforeInsert } from "typeorm";
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    BaseEntity,
+    BeforeInsert,
+    OneToMany,
+    OneToOne,
+    JoinColumn
+} from "typeorm";
 import { DateTime } from "luxon";
+import { Address } from "../entity/Address";
 
 @Entity()
 export class User extends BaseEntity{
@@ -13,7 +23,7 @@ export class User extends BaseEntity{
     @Column()
     lastName: string;
 
-    @Column()
+    @Column({ unique: true })
     email: string;
 
     @Column()
@@ -40,11 +50,13 @@ export class User extends BaseEntity{
     @Column()
     gender: number;
 
-    @Column()
-    defaultBillingAddress: number;
+    @OneToOne(() => Address)
+    @JoinColumn()
+    defaultBillingAddress: Address;
 
-    @Column()
-    defaultShippingAddress: number;
+    @OneToOne(() => Address)
+    @JoinColumn()
+    defaultShippingAddress: Address;
 
     @Column()
     nonPromoRewardPoints: number;
@@ -55,7 +67,8 @@ export class User extends BaseEntity{
     @Column()
     dateOfBirth: string;
 
-
+    @OneToMany(() => Address, (address) => address.user)
+    addresses: Address[];
 
     @BeforeInsert()
     async createdAtGen(){

@@ -1,6 +1,6 @@
-import BaseController, {NextFunction, Request, Response} from "@/adapter/controllers/base/BaseController";
+import BaseController, { NextFunction, Request, Response } from "@/adapter/controllers/base/BaseController";
 import { CreateUserDto } from "@/application/modules/administrator/dto/CreateUserDto";
-import {deleteCustomerUseCase, registerCustomerUseCase, updateCustomerUseCase} from './container/index'
+import { deleteCustomerUseCase, registerCustomerUseCase, updateCustomerUseCase } from './container/index'
 import { UpdateUserDto } from "@/application/modules/administrator/dto/UpdateUserDto";
 
 export class CustomerController extends BaseController {
@@ -50,8 +50,6 @@ export class CustomerController extends BaseController {
                 phone: req.body?.phone,
                 gender: req.body?.gender,
                 dateOfBirth: req.body?.dateOfBirth,
-                defaultShippingAddress:req.body?.defaultShippingAddress,
-                defaultBillingAddress: req.body?.defaultBillingAddress
             };
 
             this.handleResult(res, await updateCustomerUseCase.execute(user));

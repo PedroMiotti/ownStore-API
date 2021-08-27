@@ -8,6 +8,4 @@ export class UpdateUserDto {
     gender?: number = null;
     phone?: string = null;
     dateOfBirth?: string = null;
-    defaultShippingAddress?: number = null;
-    defaultBillingAddress?: number = null;
 }

@@ -1,19 +1,21 @@
-import {createConnection, Connection} from "typeorm";
-import AppSettings from "@/application/shared/settings/AppSettings";
-import logger from "@/application/shared/logger";
+import { createConnection, Connection } from "typeorm";
+import AppSettings from "../../../application/shared/settings/AppSettings";
+import logger from "../../../application/shared/logger";
+import { User, Address } from '../../entity/index';
 
-export default class MySqlConnection {
+export class MySqlConnection {
     static host: string;
     static port: number = 3306;
-    static user: string;
+    static username: string;
     static password: string;
     static database: string;
     static connectionLimit: number;
+    static type: string;
 
     public static init() {
         this.connectionLimit = parseInt(AppSettings.MySQLConnectionLimit);
         this.host = AppSettings.MySQLHost;
-        this.user = AppSettings.MySQLUser;
+        this.username = AppSettings.MySQLUser;
         this.password = AppSettings.MySQLPassword;
         this.database = AppSettings.MySQLDatabaseName;
 
@@ -24,24 +26,17 @@ export default class MySqlConnection {
         });
     }
 
-    public static createConnection(): Promise<Connection> {
-        return createConnection({
+    public static async createConnection(): Promise<Connection> {
+        return await createConnection({
             type: "mysql",
             host: this.host,
             port: this.port,
-            username: this.user,
+            username: this.username,
             password: this.password,
             database: this.database,
-            extra: {
-                connectionLimit: this.connectionLimit
-            },
-            entities: [
-                "src/infrastructure/entity/**/*.ts"
-            ],
-            migrations: [
-                "src/infrastructure/migrations/**/*.ts"
-            ]
         });
     }
 
 }
+
+

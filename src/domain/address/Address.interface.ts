@@ -1,5 +1,8 @@
+import { Customer } from "@/domain/customer/Customer";
+
 export interface IAddress {
     id: number;
+    customer: Customer;
     streetName: string;
     postalCode: string;
     number: string;
