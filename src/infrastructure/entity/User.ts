@@ -3,12 +3,10 @@ import {
     Column,
     PrimaryGeneratedColumn,
     BaseEntity,
-    BeforeInsert,
     OneToMany,
     OneToOne,
-    JoinColumn
+    JoinColumn, CreateDateColumn, UpdateDateColumn
 } from "typeorm";
-import { DateTime } from "luxon";
 import { Address } from "../entity/Address";
 
 @Entity()
@@ -23,19 +21,27 @@ export class User extends BaseEntity{
     @Column()
     lastName: string;
 
-    @Column({ unique: true })
+    @Column({
+        unique: true
+    })
     email: string;
 
-    @Column()
+    @Column({
+        default: false
+    })
     emailVerified: boolean;
 
     @Column()
     password: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     lastLogin: string;
 
-    @Column()
+    @Column({
+        default: true
+    })
     isActive: boolean
 
     @Column()
@@ -44,34 +50,41 @@ export class User extends BaseEntity{
     @Column()
     isStaff: boolean;
 
-    @Column()
+    @CreateDateColumn()
     createdAt: string;
 
-    @Column()
+    @UpdateDateColumn()
+    updatedAt: string;
+
+    @Column({
+        nullable: true
+    })
     gender: number;
 
-    @OneToOne(() => Address)
+    @OneToOne(() => Address, { nullable: true })
     @JoinColumn()
     defaultBillingAddress: Address;
 
-    @OneToOne(() => Address)
+    @OneToOne(() => Address, { nullable: true })
     @JoinColumn()
     defaultShippingAddress: Address;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     nonPromoRewardPoints: number;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     promoRewardPoints: number;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     dateOfBirth: string;
 
-    @OneToMany(() => Address, (address) => address.user)
+    @OneToMany(() => Address, (address) => address.customer)
     addresses: Address[];
 
-    @BeforeInsert()
-    async createdAtGen(){
-        this.createdAt = DateTime.local().toISO();
-    }
 }

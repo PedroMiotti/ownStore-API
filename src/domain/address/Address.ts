@@ -13,7 +13,7 @@ export class Address implements IAddress{
     country: string;
     complement: string;
 
-    constructor(customer?: Customer, streetName?: string, postalCode?: string, number?: string, neighborhood?: string, city?: string, state?: string, country?: string, complement?: string) {
+    constructor(customer?: Customer, streetName?: string, postalCode?: string, number?: string, neighborhood?: string, city?: string, state?: string, country?: string, complement?: string, id?: number) {
         this.customer = customer;
         this.streetName = streetName;
         this.postalCode = postalCode;
@@ -23,5 +23,6 @@ export class Address implements IAddress{
         this.state = state;
         this.country = country;
         this.complement = complement;
+        this.id = id;
     }
 }

@@ -34,6 +34,9 @@ export class MySqlConnection {
             username: this.username,
             password: this.password,
             database: this.database,
+            entities: [
+                "src/infrastructure/entity/*.ts"
+            ],
         });
     }
 

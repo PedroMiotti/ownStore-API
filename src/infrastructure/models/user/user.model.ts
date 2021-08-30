@@ -86,8 +86,6 @@ class UserModel {
 
         return mapper.mapArray<UserDto, User>(users, () => mapper.activator(User));
     }
-
-
 }
 
 export default new UserModel();

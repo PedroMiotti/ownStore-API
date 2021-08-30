@@ -6,8 +6,9 @@ import BaseController from "@/adapter/controllers/base/BaseController";
 import authController from "@/adapter/controllers/auth/AuthController";
 import adminController from "@/adapter/controllers/administrator/AdministratorController";
 import customerController from '@/adapter/controllers/customer/CustomerController';
+import addressController from '@/adapter/controllers/address/AddressController'
 
-const controllers: BaseController[] = [authController, adminController, customerController];
+const controllers: BaseController[] = [authController, adminController, customerController, addressController];
 
 const app = new App(controllers);
 

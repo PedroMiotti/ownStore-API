@@ -10,7 +10,7 @@
     "release": "semantic-release --no-ci",
     "test:unit": "npm run build && jest ",
     "test:integration": "DOTENV_CONFIG_PATH=.env.test npm run build && jest ",
-    "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n migration -d src/infrastructure/migrations",
+    "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n migration -d src/infrastructure/migrations --config src/infrastructure/database/typeorm/ormconfig.ts",
     "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run --config src/infrastructure/database/typeorm/ormconfig.ts"
   },
   "repository": {

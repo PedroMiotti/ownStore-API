@@ -4,7 +4,6 @@ import { mock } from "jest-mock-extended";
 import { Customer } from "../../../../../domain/customer/Customer";
 import applicationStatus from "../../../../shared/status/applicationStatusCodes";
 import resources, { resourceKeys } from "../../../../shared/locals";
-import { IEmailProvider } from "../../../email/ports/IEmailProvider";
 import { IUserRepository } from "../../../user/ports/IUserRepository";
 
 

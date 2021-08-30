@@ -1,4 +1,4 @@
-import {BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "../entity/User";
 
 @Entity()
@@ -9,7 +9,9 @@ export class Address extends BaseEntity {
     @Column()
     streetName: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     number: string;
 
     @Column()
@@ -21,13 +23,17 @@ export class Address extends BaseEntity {
     @Column()
     neighborhood: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     complement: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     postalCode: string;
 
     @ManyToOne(() => User, (user) => user.addresses)
     @JoinColumn()
-    user: User;
+    customer: User;
 }

@@ -1,8 +1,8 @@
 import BaseController, { NextFunction, Request, Response } from "@/adapter/controllers/base/BaseController";
 import { Address } from "@/domain/address/Address";
-import { AddAddressDto } from "@/application/modules/address/dto/AddAddressDto";
-import { addAddressUseCase } from "@/adapter/controllers/address/container";
+import { addAddressUseCase, updateAddressUseCase } from "@/adapter/controllers/address/container";
 import mapper from "mapper-tsk";
+import { AddressDto } from "@/application/modules/address/dto/AddressDto";
 
 export class AddressController extends BaseController {
     constructor() {
@@ -13,7 +13,7 @@ export class AddressController extends BaseController {
     add = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try{
             const customerId: number = parseInt(req.body?.customerId);
-            const address: AddAddressDto = {
+            const address: AddressDto = {
                 streetName: req.body?.streetName,
                 postalCode: req.body?.postalCode,
                 number: req.body?.number,
@@ -35,7 +35,25 @@ export class AddressController extends BaseController {
     }
 
     update = async (req: Request, res: Response, next: NextFunction):Promise<void> => {
+        try{
+            const address: AddressDto = {
+                id: parseInt(req.params?.id),
+                streetName: req.body?.streetName,
+                postalCode: req.body?.postalCode,
+                number: req.body?.number,
+                neighborhood: req.body?.neighborhood,
+                city: req.body?.city,
+                state: req.body?.state,
+                country: req.body?.country,
+                complement: req.body?.complement,
+                customerId: parseInt(req.body?.customerId)
+            }
 
+            this.handleResult(res, await updateAddressUseCase.execute(address));
+        }
+        catch (e) {
+            next(e);
+        }
     }
 
     delete = async (req: Request, res: Response, next: NextFunction):Promise<void> => {
@@ -48,7 +66,7 @@ export class AddressController extends BaseController {
 
     private initializeRoutes(): void {
         this.router.post('/v1/address/', this.add);
-        this.router.put('/v1/address/', this.update);
+        this.router.put('/v1/address/:id', this.update);
         this.router.delete('/v1/address/:id', this.delete);
         this.router.get('/v1/address/:id', this.getById);
     }
