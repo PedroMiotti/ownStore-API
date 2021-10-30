@@ -1,6 +1,6 @@
 import BaseController, { NextFunction, Request, Response } from "@/adapter/controllers/base/BaseController";
 import { Address } from "@/domain/address/Address";
-import { addAddressUseCase, updateAddressUseCase } from "@/adapter/controllers/address/container";
+import { addAddressUseCase, deleteAddressUseCase, updateAddressUseCase } from "@/adapter/controllers/address/container";
 import mapper from "mapper-tsk";
 import { AddressDto } from "@/application/modules/address/dto/AddressDto";
 
@@ -57,7 +57,13 @@ export class AddressController extends BaseController {
     }
 
     delete = async (req: Request, res: Response, next: NextFunction):Promise<void> => {
+        try {
+            const id: number = parseInt(req.params?.id);
+            this.handleResult(res, await deleteAddressUseCase.execute(id, req.session));
 
+        } catch (error) {
+            next(error);
+        }
     }
 
     getById = async (req: Request, res: Response, next: NextFunction):Promise<void> => {

@@ -1,5 +1,5 @@
 import { Address } from "@/domain/address/Address";
-import { getRepository } from "typeorm";
+import {createQueryBuilder, getRepository} from "typeorm";
 import { Address as AddressEntity } from '../../entity/Address';
 import { AddressDto } from "@/application/modules/address/dto/AddressDto";
 import mapper from "mapper-tsk";
@@ -26,8 +26,10 @@ class AddressModel {
     }
 
     async getAddressById(id: number): Promise<Address> {
-        const addressRepository = getRepository(AddressEntity);
-        const a: AddressDto | undefined = await addressRepository.findOne({ id });
+        const a = await createQueryBuilder("Address")
+            .leftJoinAndSelect("Address.customer", "customer")
+            .where("Address.id = :id", { id })
+            .getOne();
 
         if(!a)
             return null;
@@ -35,6 +37,14 @@ class AddressModel {
         return mapper.mapObject(a, new Address());
     }
 
+    async delete(id: number): Promise<string> {
+
+        const addressRepository = getRepository(AddressEntity);
+
+        await addressRepository.delete(id);
+
+        return "Deleted successfully";
+    }
 
 }
 

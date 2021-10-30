@@ -5,7 +5,7 @@ import {UpdateAddressUseCase} from "@/application/modules/address/useCases/updat
 
 
 const addAddressUseCase = new AddAddressUseCase(addressRepository, userRepository);
-const deleteAddressUseCase = new DeleteAddressUseCase(addressRepository);
+const deleteAddressUseCase = new DeleteAddressUseCase(addressRepository, userRepository);
 const updateAddressUseCase = new UpdateAddressUseCase(addressRepository, userRepository);
 
 export { addAddressUseCase, deleteAddressUseCase, updateAddressUseCase };

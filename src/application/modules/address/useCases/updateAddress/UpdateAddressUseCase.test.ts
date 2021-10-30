@@ -44,7 +44,6 @@ describe("Positive address tests", () => {
         addressRepositoryMock.getAddressById.mockResolvedValueOnce(returnedAddress);
         userRepositoryMock.getUserById.mockResolvedValueOnce(customer);
 
-
         const result = await updateAddressUseCase.execute(address);
 
         expect(result.success).toBeTruthy();

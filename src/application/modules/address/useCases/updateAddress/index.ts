@@ -10,7 +10,6 @@ export class UpdateAddressUseCase extends BaseUseCase {
     private readonly addressRepository: IAddressRepository;
     private readonly userRepository: IUserRepository;
 
-
     public constructor(addressRepository: IAddressRepository, userRepository: IUserRepository) {
         super();
         this.addressRepository = addressRepository;
@@ -51,8 +50,8 @@ export class UpdateAddressUseCase extends BaseUseCase {
         doesAddressExists.country = country;
         doesAddressExists.complement = complement;
 
-        const wasUpdated: Address = await this.addressRepository.updateAddress(doesAddressExists);
-        if (!wasUpdated) {
+        const updatedAddress: Address = await this.addressRepository.updateAddress(doesAddressExists);
+        if (!updatedAddress) {
             result.setError(
                 this.resources.get(this.resourceKeys.ERROR_UPDATING_ADDRESS),
                 this.applicationStatusCode.INTERNAL_ERROR
@@ -60,7 +59,7 @@ export class UpdateAddressUseCase extends BaseUseCase {
             return result;
         }
 
-        result.setData(wasUpdated, this.applicationStatusCode.SUCCESS);
+        result.setData(updatedAddress, this.applicationStatusCode.SUCCESS);
 
         result.setMessage(
             this.resources.get(this.resourceKeys.ADDRESS_OPERATION_SUCCESSFULLY),

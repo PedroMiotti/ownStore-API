@@ -1,15 +1,17 @@
 import { BaseUseCase, IResult, Result } from "../../../../shared/useCase/BaseUseCase";
 import { IAddressRepository } from "../../../../modules/address/ports/IAddressRepository";
-import { ISession } from "@/domain/session/ISession";
-import { Address } from "@/domain/address/Address";
-
+import { ISession } from "../../../../../domain/session/ISession";
+import { Address } from "../../../../../domain/address/Address";
+import { IUserRepository } from "@/application/modules/user/ports/IUserRepository";
 
 export class DeleteAddressUseCase extends BaseUseCase {
     private readonly addressRepository: IAddressRepository;
+    private readonly userRepository: IUserRepository;
 
-    public constructor(addressRepository: IAddressRepository) {
+    public constructor(addressRepository: IAddressRepository, userRepository: IUserRepository) {
         super();
         this.addressRepository = addressRepository;
+        this.userRepository = userRepository;
     }
 
     async execute(addressId: number, session: ISession): Promise<IResult>{

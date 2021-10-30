@@ -16,7 +16,13 @@ export class AddressRepository implements IAddressRepository{
     }
 
     deleteAddress(addressId: number): Promise<string> {
-        return Promise.resolve("");
+        return AddressModel.delete(addressId)
+            .then((res: string) => {
+                return res;
+            }).catch((e) => {
+                logger.error("Error when deleting address : ", e);
+                return Promise.reject(e);
+            });
     }
 
     getAddressById(id: number): Promise<Address> {

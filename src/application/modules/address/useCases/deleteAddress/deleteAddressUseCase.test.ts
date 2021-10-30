@@ -7,12 +7,14 @@ import { ISession } from "../../../../../domain/session/ISession";
 import { Customer } from "../../../../../domain/customer/Customer";
 import { DeleteAddressUseCase } from "./index";
 import applicationStatusCodes from "../../../../shared/status/applicationStatusCodes";
+import { IUserRepository } from "../../../user/ports/IUserRepository";
 
 const addressRepositoryMock = mock<IAddressRepository>();
-const deleteAddressUseCase = new DeleteAddressUseCase(addressRepositoryMock);
+const userRepositoryMock = mock<IUserRepository>();
+const deleteAddressUseCase = new DeleteAddressUseCase(addressRepositoryMock, userRepositoryMock);
 
 const customer: Customer = new Customer("Pedro", "Miotti", "pedromiotti@hotmail.com", true, false, null, 1);
-const address: Address = new Address(customer, "Rua barcelona", "112233", "123", "Itaquera", "Itapetininga", "SP", "Brasil", "Apt. 234");
+const address: Address = new Address(customer, "Rua barcelona", "112233", "123", "Itaquera", "Itapetininga", "SP", "Brasil", "Apt. 234", 1);
 const nonAdminSession: ISession = {
     id: 1,
     email: "pedromiotti@hotmail.com",
@@ -32,17 +34,19 @@ describe("Positive address tests", () => {
     beforeEach(() => {
         addressRepositoryMock.deleteAddress.mockReset();
         addressRepositoryMock.getAddressById.mockReset();
+        userRepositoryMock.getUserById.mockReset();
     });
 
     it("Should return a success if the address was deleted", async () => {
         addressRepositoryMock.getAddressById.mockResolvedValueOnce(address);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(customer);
         addressRepositoryMock.deleteAddress.mockResolvedValueOnce("Deleted successfully");
 
         const result = await deleteAddressUseCase.execute(1, nonAdminSession);
 
         expect(result.success).toBeTruthy();
-        expect(result.statusCode).toBe(applicationStatus.SUCCESS);
         expect(result.message).toBe(resources.get(resourceKeys.ADDRESS_OPERATION_SUCCESSFULLY));
+        expect(result.statusCode).toBe(applicationStatus.SUCCESS);
     });
 });
 
@@ -54,6 +58,7 @@ describe("Negative address tests", () => {
     beforeEach(() => {
         addressRepositoryMock.deleteAddress.mockReset();
         addressRepositoryMock.getAddressById.mockReset();
+        userRepositoryMock.getUserById.mockReset();
     });
 
     it("Should return a 400 error if id is not provided", async () => {
@@ -70,6 +75,7 @@ describe("Negative address tests", () => {
 
     it("Should return a 500 error if there is an error on the db", async () => {
         addressRepositoryMock.getAddressById.mockResolvedValueOnce(address);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(customer);
         addressRepositoryMock.deleteAddress.mockResolvedValueOnce(null);
 
         const result = await deleteAddressUseCase.execute(1, nonAdminSession);
@@ -81,6 +87,7 @@ describe("Negative address tests", () => {
 
     it("Should return a 401 error if the address customer id and the session id are different", async () => {
         addressRepositoryMock.getAddressById.mockResolvedValueOnce(address);
+        userRepositoryMock.getUserById.mockResolvedValueOnce(customer);
         nonAdminSession.id = 2;
 
         const result = await deleteAddressUseCase.execute(1, nonAdminSession);
